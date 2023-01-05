@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import { Schema, model } from "mongoose";
 
-const Workshop = new mongoose.Schema({
+const Workshop = new Schema({
 	name: { type: String },
 	date: { type: Date },
 	location: { type: String },
@@ -10,7 +10,7 @@ const Workshop = new mongoose.Schema({
 	capacity: { type: Number },
 	owner: { type: String },
 	
-	status: { type: String },
+	status: { type: String, default: 'pending' },
 });
 
-export default mongoose.model('WorkshopModel', Workshop, 'workshops');
+export default model('WorkshopModel', Workshop, 'workshops');
