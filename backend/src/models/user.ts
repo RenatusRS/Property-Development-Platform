@@ -8,6 +8,10 @@ const User = new Schema({
 	phone: { type: String },
 	email: { type: String },
 	role: { type: String },
+
+	organization: { type: String },
+	address: { type: String },
+	id: { type: String },
 	
 	status: { type: String, default: 'pending' },
 });
