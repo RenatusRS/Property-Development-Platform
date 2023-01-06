@@ -1,11 +1,11 @@
 import { Schema, model } from "mongoose";
 
-const Attendance = new Schema({
+const Chat = new Schema({
 	sender: { type: String },
 	reciever: { type: String },
-	time: { type: Date },
+	time: { type: Date, default: new Date() },
 	workshop: { type: String },
 	message: { type: String },
 });
 
-export default model('AttendanceModel', Attendance, 'attendances');
+export default model('ChatModel', Chat, 'chats');

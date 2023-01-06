@@ -1,8 +1,8 @@
 import { Schema, model } from "mongoose";
 
-const Reservation = new Schema({
+const Like = new Schema({
 	username: { type: String },
 	workshop: { type: String },
 });
 
-export default model('ReservationModel', Reservation, 'reservations');
+export default model('LikeModel', Like, 'likes');
