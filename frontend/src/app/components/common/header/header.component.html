@@ -1,0 +1,6 @@
+<mat-toolbar color="primary">
+	<span>PIA Projekat</span>
+	<span class="spacer"></span>
+	<button *ngIf="user" mat-button (click)="logout()"><mat-icon>person_outline</mat-icon>Sign-Out</button>
+	<button *ngIf="user == null" mat-button (click)="login()"><mat-icon>person</mat-icon>Sign-In</button>
+</mat-toolbar>
