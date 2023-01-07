@@ -3,7 +3,10 @@ import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 
-import userRouter from './routes/user.routes';
+import userRouter from './routes/guest.routes';
+import guestRouter from './routes/guest.routes';
+import organizatorRouter from './routes/organizator.route';
+import adminRouter from './routes/admin.routes';
 
 const app = express();
 app.use(cors());
@@ -17,6 +20,9 @@ connection.once('open', () => {
 
 const router = express.Router();
 
+app.use('/guest', guestRouter);
 app.use('/users', userRouter);
+app.use('/organizator', organizatorRouter);
+app.use('/admin', adminRouter);
 
 app.listen(4000, () => console.log(`Express server running on port 4000`));

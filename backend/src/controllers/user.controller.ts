@@ -7,30 +7,6 @@ import LikeModel from '../models/like';
 import CommentModel from '../models/comment';
 
 export class UserController {
-	login = async (req: Request, res: Response) => {
-		const { username, password, role } = req.body;
-
-		const user = await UserModel.findOne({ 'username': username, 'password': password, 'role': role === 'admin' ? {$eq : role} : {$ne : role} });
-
-		if (!user) return res.status(404).json({ message: 'User not found' });
-
-		if (user.status !== 'active') return res.status(401).json({ message: `User is ${user.status}` });
-
-		res.status(200).json(user);
-	}
-
-	register = async (req: Request, res: Response) => {
-		const { username } = req.body
-
-		const user = await UserModel.findOne({ 'username': username });
-
-		if (user) return res.status(409).json({ message: 'User already exists' });
-
-		await (new UserModel(req.body)).save();
-
-		res.status(200).json({ message: 'User registered' });
-	}
-
 	changePassword = async (req: Request, res: Response) => {
 		const { username, password } = req.body
 
@@ -111,7 +87,7 @@ export class UserController {
 		res.status(200).json({ message: 'Comment deleted' });
 	}
 	
-	signUpForWorkshop = async (req: Request, res: Response) => {
+	signUpWorkshop = async (req: Request, res: Response) => {
 		const { username, workshop } = req.body
 		
 		const work = await WorkshopModel.findOne({ _id: workshop });
@@ -123,7 +99,7 @@ export class UserController {
 		res.status(200).json({ message: 'Signed up for workshop' });
 	}
 	
-	cancelWorkshop = async (req: Request, res: Response) => {
+	signOffWorkshop = async (req: Request, res: Response) => {
 		const { username, workshop } = req.body
 
 		const work = await WorkshopModel.findOne({ _id: workshop });
@@ -132,7 +108,7 @@ export class UserController {
 		
 		await AttendanceModel.deleteOne({ username: username, workshop: workshop });
 		
-		res.status(200).json({ message: 'Canceled workshop' });
+		res.status(200).json({ message: 'Signed off from workshop' });
 	}
 	
 	getWorkshop = async (req: Request, res: Response) => {

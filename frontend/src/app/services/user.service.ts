@@ -5,21 +5,24 @@ import { Service } from './service';
 @Injectable({
 	providedIn: 'root'
 })
-export class UserService extends Service{
+export class GuestService extends Service {
 
+	protected controller = 'guest'
+	
 	constructor(http: HttpClient) {
 		super(http)
 	}
 
-	login(username, password) {
-		return this.post(`users/login`, {
+	login(username: string, password: string, admin: boolean) {
+		return this.post(`login`, {
 			username: username,
-			password: password
+			password: password,
+			admin: admin
 		})
 	}
 
 	register(firstname, lastname, username, password, phone, email, role) {
-		return this.post(`users/register`, {
+		return this.post(`register`, {
 			firstname: firstname,
 			lastname: lastname,
 			username: username,

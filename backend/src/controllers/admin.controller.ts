@@ -11,6 +11,12 @@ export class AdminController {
 
 		res.status(200).json({ message: 'User updated' });
 	}
+	
+	getRegistrationRequests = async (req: Request, res: Response) => {
+		const users = await UserModel.find({ status: 'pending' });
+		
+		res.status(200).json(users);
+	}
 
 	workshopRequest = async (req: Request, res: Response) => {
 		const { workshop, status, username } = req.body
@@ -24,5 +30,11 @@ export class AdminController {
 		await WorkshopModel.updateOne({workshop: workshop}, {status: status});
 
 		res.status(200).json({ message: 'Workshop updated' });
+	}
+	
+	getWorkshopRequests = async (req: Request, res: Response) => {
+		const workshops = await WorkshopModel.find({ status: 'pending' });
+		
+		res.status(200).json(workshops);
 	}
 }
