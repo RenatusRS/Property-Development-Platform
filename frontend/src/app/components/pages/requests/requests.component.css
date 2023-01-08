@@ -1,0 +1,25 @@
+/* Structure */
+.example-container {
+	position: relative;
+}
+
+.example-table-container {
+	position: relative;
+	min-height: 200px;
+	max-height: 400px;
+	overflow: auto;
+}
+
+table {
+	width: 100%;
+}
+
+/* Column Widths */
+.mat-column-number,
+.mat-column-state {
+	max-width: 64px;
+}
+
+.mat-column-created {
+	max-width: 124px;
+}

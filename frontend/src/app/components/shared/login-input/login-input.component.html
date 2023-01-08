@@ -1,20 +1,20 @@
 <mat-card>
-    <mat-card-title>Login</mat-card-title>
-    <mat-card-content>
-            <p>
-                <mat-form-field>
-                    <input type="text" matInput placeholder="Username" [(ngModel)]="username">
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field>
-                    <input type="password" matInput placeholder="Password" [(ngModel)]="password">
-                </mat-form-field>
-            </p>
-            <p *ngIf="error" class="error">
-                {{ error }}
-            </p>
+	<mat-card-title>Login</mat-card-title>
+	<mat-card-content>
+		<p>
+			<mat-form-field>
+				<input type="text" matInput placeholder="Username" [(ngModel)]="username">
+			</mat-form-field>
+		</p>
+		<p>
+			<mat-form-field>
+				<input type="password" matInput placeholder="Password" [(ngModel)]="password">
+			</mat-form-field>
+		</p>
+		<p *ngIf="error" class="error">
+			{{ error }}
+		</p>
 
-            <button (click)="submit()" mat-button>Login</button>
-    </mat-card-content>
+		<button (click)="submit()" mat-button>Login</button>
+	</mat-card-content>
 </mat-card>

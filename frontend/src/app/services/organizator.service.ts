@@ -5,10 +5,15 @@ import { Service } from './service';
 @Injectable({
 	providedIn: 'root'
 })
-export class UserService extends Service {
-	protected controller = 'user'
+export class OrganizatorService extends Service {
+	protected controller = 'organizator'
 
 	constructor(http: HttpClient) {
 		super(http)
 	}
+
+	getAttendanceRequests(status: string) {
+		return this.get(`getAttendanceRequests?status=${status}`)
+	}
+
 }

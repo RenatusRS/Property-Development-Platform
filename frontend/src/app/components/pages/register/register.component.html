@@ -1,0 +1,66 @@
+<mat-card>
+	<mat-card-title>Registration</mat-card-title>
+	<mat-card-content>
+		<p>
+			<mat-form-field>
+				<input type="text" required matInput placeholder="First Name" [(ngModel)]="firstName">
+			</mat-form-field>
+
+			<mat-form-field>
+				<input type="text" required matInput placeholder="Last Name" [(ngModel)]="lastName">
+			</mat-form-field>
+		</p>
+		<p>
+			<mat-form-field>
+				<input type="email" required matInput placeholder="Email" [(ngModel)]="email">
+			</mat-form-field>
+			<mat-form-field>
+				<input type="tel" required matInput placeholder="Phone" [(ngModel)]="phone">
+			</mat-form-field>
+		</p>
+		<p>
+			<mat-form-field>
+				<input [type]="showPassword ? 'text' : 'password'" required matInput placeholder="Password"
+					[(ngModel)]="password">
+				<mat-icon matSuffix (click)="togglePasswordVisibility()">
+					{{showPassword?'visibility_off':'visibility'}}
+				</mat-icon>
+			</mat-form-field>
+			<mat-form-field>
+				<input [type]="showConfirmPassword ? 'text' : 'password'" required matInput
+					placeholder="Confirm Password" [(ngModel)]="confirmPassword">
+				<mat-icon matSuffix (click)="toggleConfirmPasswordVisibility()">
+					{{showConfirmPassword?'visibility_off':'visibility'}}
+				</mat-icon>
+			</mat-form-field>
+		</p>
+		<p>
+			<mat-form-field>
+				<input type="text" required matInput placeholder="Username" [(ngModel)]="username">
+			</mat-form-field>
+
+			<mat-slide-toggle [(ngModel)]="organizator">Organizator</mat-slide-toggle>
+		</p>
+		<div *ngIf="organizator">
+			<p>
+				<mat-form-field>
+					<input type="text" matInput placeholder="Organization Name" [(ngModel)]="organization">
+				</mat-form-field>
+				<mat-form-field>
+					<input type="text" matInput placeholder="Organization ID" [(ngModel)]="identification">
+				</mat-form-field>
+			</p>
+			<p>
+				<mat-form-field>
+					<input type="text" matInput placeholder="Address" [(ngModel)]="address">
+				</mat-form-field>
+			</p>
+		</div>
+
+		<p *ngIf="error" class="error">
+			{{ error }}
+		</p>
+
+		<button (click)="submit()" mat-button>Register</button>
+	</mat-card-content>
+</mat-card>

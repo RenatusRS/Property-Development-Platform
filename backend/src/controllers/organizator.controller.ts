@@ -12,7 +12,9 @@ export class OrganizatorController {
     }
 
     getAttendanceRequests = async (req: Request, res: Response) => {
-        const attendances = await AttendanceModel.find({ status: 'pending' });
+        const attendances = await AttendanceModel.find({ status: req.query.status });
+        
+        res.status(200).json(attendances);
     }
 
     createWorkshop = async (req: Request, res: Response) => {

@@ -11,7 +11,7 @@ const User = new Schema({
 
 	organization: { type: String },
 	address: { type: String },
-	id: { type: String },
+	identification: { type: String },
 	
 	status: { type: String, default: 'pending' },
 });

@@ -57,66 +57,70 @@ import { LoginInputComponent } from './components/shared/login-input/login-input
 import { HeaderComponent } from './components/common/header/header.component';
 import { FooterComponent } from './components/common/footer/footer.component';
 import { LoginAdminComponent } from './components/pages/login-admin/login-admin.component';
+import { RegisterComponent } from './components/pages/register/register.component';
+import { RequestsComponent } from './components/pages/requests/requests.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    LoginAdminComponent,
-    LoginInputComponent,
-    HeaderComponent,
-    FooterComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MatSlideToggleModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-    CommonModule,
-    // Material Form Controls
-    MatAutocompleteModule,
-    MatCheckboxModule,
-    MatDatepickerModule,
-    MatRadioModule,
-    MatSelectModule,
-    MatSliderModule,
-    // Material Navigation
-    MatMenuModule,
-    MatSidenavModule,
-    MatToolbarModule,
-    // Material Layout
-    MatDividerModule,
-    MatExpansionModule,
-    MatGridListModule,
-    MatListModule,
-    MatStepperModule,
-    MatTabsModule,
-    MatTreeModule,
-    // Material Buttons & Indicators
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatBadgeModule,
-    MatChipsModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
-    MatProgressBarModule,
-    MatRippleModule,
-    // Material Popups & Modals
-    MatBottomSheetModule,
-    MatDialogModule,
-    MatSnackBarModule,
-    MatTooltipModule,
-    // Material Data tables
-    MatPaginatorModule,
-    MatSortModule,
-    MatTableModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		LoginComponent,
+		LoginAdminComponent,
+		LoginInputComponent,
+		HeaderComponent,
+		FooterComponent,
+		RegisterComponent,
+		RequestsComponent
+	],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		FormsModule,
+		HttpClientModule,
+		BrowserAnimationsModule,
+		MatSlideToggleModule,
+		MatFormFieldModule,
+		MatInputModule,
+		MatCardModule,
+		CommonModule,
+		// Material Form Controls
+		MatAutocompleteModule,
+		MatCheckboxModule,
+		MatDatepickerModule,
+		MatRadioModule,
+		MatSelectModule,
+		MatSliderModule,
+		// Material Navigation
+		MatMenuModule,
+		MatSidenavModule,
+		MatToolbarModule,
+		// Material Layout
+		MatDividerModule,
+		MatExpansionModule,
+		MatGridListModule,
+		MatListModule,
+		MatStepperModule,
+		MatTabsModule,
+		MatTreeModule,
+		// Material Buttons & Indicators
+		MatButtonModule,
+		MatButtonToggleModule,
+		MatBadgeModule,
+		MatChipsModule,
+		MatIconModule,
+		MatProgressSpinnerModule,
+		MatProgressBarModule,
+		MatRippleModule,
+		// Material Popups & Modals
+		MatBottomSheetModule,
+		MatDialogModule,
+		MatSnackBarModule,
+		MatTooltipModule,
+		// Material Data tables
+		MatPaginatorModule,
+		MatSortModule,
+		MatTableModule,
+	],
+	providers: [],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

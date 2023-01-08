@@ -11,30 +11,30 @@ export class AdminController {
 
 		res.status(200).json({ message: 'User updated' });
 	}
-	
+
 	getRegistrationRequests = async (req: Request, res: Response) => {
-		const users = await UserModel.find({ status: 'pending' });
-		
+		const users = await UserModel.find({ status: req.query.status });
+
 		res.status(200).json(users);
 	}
 
 	workshopRequest = async (req: Request, res: Response) => {
 		const { workshop, status, username } = req.body
-		
+
 		const user = await UserModel.findOne({ username: username });
-		
+
 		const userAttendedWorkshops = await AttendanceModel.find({ username: username, status: 'accepted' });
-		
+
 		if (userAttendedWorkshops.length > 0) return res.status(400).json({ message: 'User has active attendences' });
-		
-		await WorkshopModel.updateOne({workshop: workshop}, {status: status});
+
+		await WorkshopModel.updateOne({ workshop: workshop }, { status: status });
 
 		res.status(200).json({ message: 'Workshop updated' });
 	}
-	
+
 	getWorkshopRequests = async (req: Request, res: Response) => {
-		const workshops = await WorkshopModel.find({ status: 'pending' });
-		
+		const workshops = await WorkshopModel.find({ status: req.query.status });
+
 		res.status(200).json(workshops);
 	}
 }

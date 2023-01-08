@@ -1,6 +1,13 @@
 <mat-toolbar color="primary">
 	<span>PIA Projekat</span>
 	<span class="spacer"></span>
-	<button *ngIf="user" mat-button (click)="logout()"><mat-icon>person_outline</mat-icon>Sign-Out</button>
-	<button *ngIf="user == null" mat-button (click)="login()"><mat-icon>person</mat-icon>Sign-In</button>
+	<div *ngIf="user">
+		<button *ngIf="user.role == 'admin' || user.role == 'organizator'" mat-button
+			(click)="requests()"><mat-icon>inbox</mat-icon> Requests</button>
+		<button mat-button (click)="logout()"><mat-icon>person_outline</mat-icon> Sign-Out</button>
+	</div>
+	<div *ngIf="user == null">
+		<button mat-button (click)="login()"><mat-icon>person</mat-icon> Sign-In</button>
+		<button mat-button (click)="register()"><mat-icon>person_add</mat-icon> Sign-Up</button>
+	</div>
 </mat-toolbar>
