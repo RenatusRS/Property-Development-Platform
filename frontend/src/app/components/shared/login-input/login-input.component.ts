@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { User } from '../../../models/user';
 import { GuestService } from '../../../services/guest.service';
@@ -11,23 +12,32 @@ import { GuestService } from '../../../services/guest.service';
 export class LoginInputComponent {
 	@Input('admin') admin: boolean;
 
-	constructor(private service: GuestService, private router: Router) { }
+	constructor(private service: GuestService, private router: Router, private info: MatSnackBar) { }
 
 	username: string;
 	password: string;
 
-	error: string;
-
 	submit() {
+		if (!this.username || this.username == "") {
+			this.info.open("Username is required!", "OK");
+			return;
+		}
+
+		if (!this.password || this.password == "") {
+			this.info.open("Password is required!", "OK");
+			return;
+		}
+
 		this.service.login(this.username, this.password, this.admin).subscribe({
 			next: (user: User) => {
-				console.log(user);
-				localStorage.setItem('user', JSON.stringify(user));
+				this.service.user = user;
+
+				this.info.open(`Welcome, ${user.firstname}!`, "OK");
 
 				this.router.navigate(['home']);
 			},
 			error: (error) => {
-				this.error = error.error.message;
+				this.info.open(error.error, "OK");
 			}
 		});
 	}

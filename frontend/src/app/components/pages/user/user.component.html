@@ -1,0 +1,19 @@
+<div *ngIf="user" id="main">
+	<mat-card>
+		<mat-card-title>{{user.username}}</mat-card-title>
+	</mat-card>
+
+	<div style="display: flex">
+		<mat-card style="flex: 1">
+			<mat-card-title>Attendances</mat-card-title>
+		</mat-card>
+
+		<mat-card style="flex: 1">
+			<mat-card-title>Comments</mat-card-title>
+		</mat-card>
+
+		<mat-card style="flex: 1">
+			<mat-card-title>Likes</mat-card-title>
+		</mat-card>
+	</div>
+</div>

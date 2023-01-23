@@ -1,0 +1,99 @@
+<div class="example-table-container">
+	<table mat-table [dataSource]="dataSource" class="example-table" matSort matSortActive="created" matSortDisableClear
+		matSortDirection="desc">
+
+		<ng-container matColumnDef="id">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+
+			<td mat-cell *matCellDef="let row; let i = index">
+				<mat-form-field [floatLabel]="'never'">
+					<input matInput type="text" value="{{row.username}}" disabled [(ngModel)]="workshops[i].id"
+						placeholder="#ID">
+				</mat-form-field>
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="name">
+			<th mat-header-cell *matHeaderCellDef>Name</th>
+
+			<td mat-cell *matCellDef="let i = index">
+				{{workshops[i].name}}
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="date">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+
+			<td mat-cell *matCellDef="let i = index">
+				{{workshops[i].date}}
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="location">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Location</th>
+
+			<td mat-cell *matCellDef="let i = index">
+				{{workshops[i].location}}
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="short_description">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Short Description</th>
+
+			<td mat-cell *matCellDef="let i = index">
+				{{workshops[i].short_description}}
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="description">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+
+			<td mat-cell *matCellDef="let i = index">
+				{{workshops[i].description}}
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="capacity">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Capacity</th>
+
+			<td mat-cell *matCellDef="let i = index">
+				{{workshops[i].capacity}}
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="owner">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Owner</th>
+
+			<td mat-cell *matCellDef="let i = index">
+				{{workshops[i].owner}}
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="status">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+
+			<td mat-cell *matCellDef="let row; let i = index">
+				<mat-form-field>
+					<mat-select [(value)]="workshops[i].status" (selectionChange)="update(i)">
+						<mat-option value="Approved">Approved</mat-option>
+						<mat-option value="Rejected">Rejected</mat-option>
+						<mat-option style="display: none" value="Pending">Pending</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="actions">
+			<th mat-header-cell *matHeaderCellDef disableClear>
+			</th>
+			<td mat-cell *matCellDef="let row; let i = index">
+				<button [disabled]="i == workshops.length - 1" (click)="remove(i)" mat-button color="warn">
+					<mat-icon>delete</mat-icon>
+				</button>
+			</td>
+		</ng-container>
+
+		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+		<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+	</table>
+</div>

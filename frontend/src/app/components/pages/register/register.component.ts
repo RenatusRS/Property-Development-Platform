@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { GuestService } from 'src/app/services/guest.service';
@@ -10,7 +11,7 @@ import { GuestService } from 'src/app/services/guest.service';
 })
 export class RegisterComponent implements OnInit {
 
-	constructor(private service: GuestService, private router: Router) { }
+	constructor(private service: GuestService, private router: Router, private info: MatSnackBar) { }
 
 	firstName: string;
 	lastName: string;
@@ -26,9 +27,7 @@ export class RegisterComponent implements OnInit {
 	organizator: boolean;
 	organization: string;
 	address: string;
-	identification: { type: string, number: string }[];
-
-	error: string;
+	identification: string;
 
 	showPassword: boolean = false;
 	showConfirmPassword: boolean = false;
@@ -37,12 +36,15 @@ export class RegisterComponent implements OnInit {
 	}
 
 	submit() {
-		this.service.register(this.firstName, this.lastName, this.username, this.password, this.phone, this.email, this.organizator, this.organization, this.address, this.identification).subscribe({
+		const user: User = new User(this.firstName, this.lastName, this.username, this.password, this.phone, this.email, this.organizator ? "Organizator" : "User", this.organization, this.address, this.identification);
+
+		this.service.register(user).subscribe({
 			next: (message: string) => {
+				this.info.open(message, "OK");
 				this.router.navigate(['home']);
 			},
 			error: (error) => {
-				this.error = error.error.message;
+				this.info.open(error.error.message, "OK");
 			}
 		});
 	}

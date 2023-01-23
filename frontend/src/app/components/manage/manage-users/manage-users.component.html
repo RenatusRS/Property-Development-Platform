@@ -1,0 +1,94 @@
+<div class="example-table-container">
+	<table mat-table [dataSource]="dataSource" class="example-table" matSort matSortActive="created" matSortDisableClear
+		matSortDirection="desc">
+
+		<ng-container matColumnDef="username">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
+
+			<td mat-cell *matCellDef="let i = index">{{users[i].username}}</td>
+		</ng-container>
+
+		<ng-container matColumnDef="password">
+			<th mat-header-cell *matHeaderCellDef>Password</th>
+
+			<td mat-cell *matCellDef="let i = index">{{users[i].password}}</td>
+		</ng-container>
+
+		<ng-container matColumnDef="firstname">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Firstname</th>
+
+			<td mat-cell *matCellDef="let i = index">{{users[i].firstname}}</td>
+		</ng-container>
+
+		<ng-container matColumnDef="lastname">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Lastname</th>
+
+			<td mat-cell *matCellDef="let i = index">{{users[i].lastname}}</td>
+		</ng-container>
+
+		<ng-container matColumnDef="email">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+
+			<td mat-cell *matCellDef="let i = index">{{users[i].email}}</td>
+		</ng-container>
+
+		<ng-container matColumnDef="phone">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Phone</th>
+
+			<td mat-cell *matCellDef="let i = index">{{users[i].phone}}</td>
+		</ng-container>
+
+		<ng-container matColumnDef="role">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
+
+			<td mat-cell *matCellDef="let i = index">{{users[i].role}}</td>
+		</ng-container>
+
+		<ng-container matColumnDef="organization">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Organization</th>
+
+			<td mat-cell *matCellDef="let i = index">{{users[i].organization}}</td>
+		</ng-container>
+
+		<ng-container matColumnDef="address">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Address</th>
+
+			<td mat-cell *matCellDef="let i = index">{{users[i].address}}</td>
+		</ng-container>
+
+		<ng-container matColumnDef="identification">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Identification</th>
+
+			<td mat-cell *matCellDef="let i = index">
+				{{users[i].identification}}
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="status">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+
+			<td mat-cell *matCellDef="let row; let i = index">
+				<mat-form-field>
+					<mat-select [(value)]="users[i].status" (selectionChange)="update(i)">
+						<mat-option value="Approved">Approved</mat-option>
+						<mat-option value="Rejected">Rejected</mat-option>
+						<mat-option style="display: none" value="Pending">Pending</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="actions">
+			<th mat-header-cell *matHeaderCellDef disableClear>Action</th>
+
+			<td mat-cell *matCellDef="let row; let i = index">
+				<button (click)="remove(i)" mat-button color="warn">
+					<mat-icon>delete</mat-icon>
+				</button>
+			</td>
+		</ng-container>
+
+		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+		<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+	</table>
+</div>

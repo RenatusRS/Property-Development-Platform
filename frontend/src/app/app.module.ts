@@ -47,7 +47,7 @@ import { MatRippleModule } from '@angular/material/core';
 // Material Popups & Modals
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 // Material Data tables
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -58,7 +58,11 @@ import { HeaderComponent } from './components/common/header/header.component';
 import { FooterComponent } from './components/common/footer/footer.component';
 import { LoginAdminComponent } from './components/pages/login-admin/login-admin.component';
 import { RegisterComponent } from './components/pages/register/register.component';
-import { RequestsComponent } from './components/pages/requests/requests.component';
+import { ManageUsersComponent } from './components/manage/manage-users/manage-users.component';
+import { ManageWorkshopsComponent } from './components/manage/manage-workshops/manage-workshops.component';
+import { ManageAttendancesComponent } from './components/manage/manage-attendances/manage-attendances.component';
+import { ManageComponent } from './components/manage/manage.component';
+import { UserComponent } from './components/pages/user/user.component';
 
 @NgModule({
 	declarations: [
@@ -69,7 +73,11 @@ import { RequestsComponent } from './components/pages/requests/requests.componen
 		HeaderComponent,
 		FooterComponent,
 		RegisterComponent,
-		RequestsComponent
+		ManageComponent,
+		ManageUsersComponent,
+		ManageWorkshopsComponent,
+		ManageAttendancesComponent,
+		UserComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -120,7 +128,9 @@ import { RequestsComponent } from './components/pages/requests/requests.componen
 		MatSortModule,
 		MatTableModule,
 	],
-	providers: [],
+	providers: [
+		{ provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 5000 } }
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

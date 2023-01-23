@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
+import { GuestService } from 'src/app/services/guest.service';
 import { User } from '../../../models/user';
 
 @Component({
@@ -7,18 +8,22 @@ import { User } from '../../../models/user';
 	templateUrl: './header.component.html',
 	styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
+	constructor(private service: GuestService, private router: Router) {
+		this.user = service.user;
 
-	constructor(private router: Router) { }
+		service.userObservable.subscribe({
+			next: (user: User) => {
+				this.user = JSON.parse(localStorage.getItem('user'));
+			}
+		});
+	}
 
 	user: User;
 
-	ngOnInit(): void {
-		this.user = JSON.parse(localStorage.getItem('user'));
-	}
-
 	logout() {
-		localStorage.removeItem('user');
+		this.service.user = null;
+
 		this.router.navigate(['home']);
 	}
 
@@ -30,7 +35,15 @@ export class HeaderComponent implements OnInit {
 		this.router.navigate(['register']);
 	}
 
-	requests() {
-		this.router.navigate(['requests']);
+	manage() {
+		this.router.navigate(['manage']);
+	}
+
+	profile() {
+		this.router.navigate([`user/${this.user.username}`]);
+	}
+
+	home() {
+		this.router.navigate(['home']);
 	}
 }

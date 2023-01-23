@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
+import { Table } from 'src/consts';
+import { User } from '../models/user';
 import { Service } from './service';
 
 @Injectable({
@@ -20,18 +22,7 @@ export class GuestService extends Service {
 		})
 	}
 
-	register(firstname, lastname, username, password, phone, email, role, organization, address, identification) {
-		return this.post(`register`, {
-			firstname: firstname,
-			lastname: lastname,
-			username: username,
-			password: password,
-			phone: phone,
-			email: email,
-			role: role,
-			organization: organization,
-			address: address,
-			identification: identification
-		})
+	register(user: User) {
+		return this.post(`register`, user);
 	}
 }

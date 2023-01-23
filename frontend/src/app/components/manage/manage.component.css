@@ -1,17 +1,11 @@
-/* Structure */
-.example-container {
-	position: relative;
-}
-
 .example-table-container {
 	position: relative;
-	min-height: 200px;
-	max-height: 400px;
 	overflow: auto;
 }
 
 table {
 	width: 100%;
+	max-width: 100%;
 }
 
 /* Column Widths */
@@ -22,4 +16,8 @@ table {
 
 .mat-column-created {
 	max-width: 124px;
+}
+
+::ng-deep .mat-form-field-underline {
+	display: none;
 }
