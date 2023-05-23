@@ -5,8 +5,6 @@ import bodyParser from 'body-parser';
 
 import userRouter from './routes/guest';
 import guestRouter from './routes/guest';
-import organizatorRouter from './routes/organizator';
-import adminRouter from './routes/admin';
 import dataRouter from './routes/data';
 
 const app = express();
@@ -23,8 +21,6 @@ const router = express.Router();
 
 app.use('/guest', guestRouter);
 app.use('/users', userRouter);
-app.use('/organizator', organizatorRouter);
-app.use('/admin', adminRouter);
 app.use('/data', dataRouter);
 
 app.listen(4000, () => console.log(`Express server running on port 4000`));

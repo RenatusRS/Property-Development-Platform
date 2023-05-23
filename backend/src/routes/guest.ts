@@ -11,12 +11,4 @@ guestRouter.route('/register').post(
 	(req, res) => new GuestController().register(req, res)
 )
 
-guestRouter.route('/getWorkshops').get(
-	(req, res) => new GuestController().getWorkshops(req, res)
-)
-
-guestRouter.route('/getTop5Workshops').get(
-	(req, res) => new GuestController().getTop5Workshops(req, res)
-)
-
 export default guestRouter;
