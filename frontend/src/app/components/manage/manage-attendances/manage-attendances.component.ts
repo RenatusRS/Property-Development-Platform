@@ -21,15 +21,14 @@ export class ManageAttendancesComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.service.getMyAttendenceRequests(this.service.user.username).subscribe({
-			next: (combined: { attendances: Attendance[], workshops: Workshop[] }) => {
-				this.attendances = combined.attendances;
-				this.workshops = combined.workshops;
+			next: (workshops: Workshop[]) => {
+				this.workshops = workshops;
 			},
 		});
 	}
 
 	update(i: number) {
-		this.service.updateAttendence(this.attendances[i]).subscribe({
+		this.service.updateAttendence(this.workshops[i].attendees).subscribe({
 			next: (response: any) => {
 			},
 		});
