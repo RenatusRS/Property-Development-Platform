@@ -46,4 +46,12 @@ export class HeaderComponent {
 	home() {
 		this.router.navigate(['home']);
 	}
+	
+	objects() {
+		this.router.navigate(['objects']);
+	}
+	
+	jobs() {
+		this.router.navigate(['jobs']);
+	}
 }

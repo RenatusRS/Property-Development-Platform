@@ -32,7 +32,7 @@ export class LoginInputComponent {
 			next: (user: User) => {
 				this.service.user = user;
 
-				this.info.open(`Welcome, ${user.firstname}!`, "OK");
+				this.info.open(`Welcome, ${user.username}!`, "OK");
 
 				this.router.navigate(['home']);
 			},

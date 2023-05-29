@@ -1,0 +1,43 @@
+<div class="example-table-container">
+	<table mat-table [dataSource]="dataSource" class="example-table">
+
+		<ng-container matColumnDef="client">
+			<th mat-header-cell *matHeaderCellDef>Client</th>
+
+			<td mat-cell *matCellDef="let i = index" (click)="profile(offersDetail[i].client)">{{offersDetail[i].client}}</td>
+		</ng-container>
+
+		<ng-container matColumnDef="agency">
+			<th mat-header-cell *matHeaderCellDef>Agency</th>
+
+			<td mat-cell *matCellDef="let i = index" (click)="profile(offers[i].agency)">{{offers[i].agency}}</td>
+		</ng-container>
+
+		<ng-container matColumnDef="address">
+			<th mat-header-cell *matHeaderCellDef>Address</th>
+
+			<td mat-cell *matCellDef="let i = index"(click)="job(offersDetail[i].address)">{{offersDetail[i].address}}</td>
+		</ng-container>
+		
+		<ng-container matColumnDef="status">
+			<th mat-header-cell *matHeaderCellDef>Status</th>
+
+			<td mat-cell *matCellDef="let i = index">{{offersDetail[i].status}}</td>
+		</ng-container>
+
+		<ng-container matColumnDef="start">
+			<th mat-header-cell *matHeaderCellDef>Start Date</th>
+
+			<td mat-cell *matCellDef="let i = index">{{offers[i].time_start}}</td>
+		</ng-container>
+		
+		<ng-container matColumnDef="end">
+			<th mat-header-cell *matHeaderCellDef>End Date</th>
+
+			<td mat-cell *matCellDef="let i = index">{{offers[i].time_end}}</td>
+		</ng-container>
+		
+		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+		<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+	</table>
+</div>

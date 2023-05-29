@@ -1,0 +1,35 @@
+<div>
+	<p>{{building.address}}</p>
+	<p>{{}}</p>
+</div>
+
+
+<div>
+	<app-canvas-create [(scheme)]="building.scheme" mode="draw"></app-canvas-create>
+</div>
+
+<div *ngIf="buildng.status == 'Requested'">
+	<mat-form-field>
+		<input type="text" required matInput [readonly]="user.role != 'Agency'" placeholder="Payment" [(ngModel)]="building.payment">
+	</mat-form-field>
+</div>
+
+<div *ngIf="user.role == 'Agency'">
+	<div *ngIf="buildng.status == 'Requested'">
+		<button (click)="update()" mat-button>Send Payment Offer</button>
+	</div>
+
+	<div *ngIf="building.status == 'Active'">
+		<button (click)="update()" mat-button>Update Progress</button>
+	</div>
+</div>
+
+<div *ngIf="user.role == 'Client'">
+	<div *ngIf="buildng.status == 'Offered'">
+		<button (click)="clientAccept()" mat-button>Accept Payment Offer</button>
+	</div>
+
+	<div *ngIf="complete">
+		<button (click)="clientPay()" mat-button>Pay & Finalize</button>
+	</div>
+</div>

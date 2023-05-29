@@ -1,15 +1,8 @@
 import { Request, Response } from 'express';
 import UserModel from '../models/user';
+import user from '../models/user';
 
 export class UserController {
-	changePassword = async (req: Request, res: Response) => {
-		const { username, password } = req.body;
-		
-		await UserModel.updateOne({ 'username': username }, { 'password': password });
-		
-		res.status(200).json('Password changed');
-	}
-	
 	getUsers = async (req: Request, res: Response) => {
 		const { username, role, status } = req.body;
 		
@@ -24,14 +17,6 @@ export class UserController {
 		res.status(200).json(users);
 	}
 	
-	updateUser = async (req: Request, res: Response) => {
-		const { username } = req.body;
-		
-		await UserModel.updateOne({ 'username': username }, req.body);
-		
-		res.status(200).json('User updated');
-	}
-	
 	getObjects = async (req: Request, res: Response) => {
 		const { objectAddress, username, status, agency } = req.body;
 		
@@ -40,6 +25,12 @@ export class UserController {
 		if (username) filter['username'] = username;
 		
 		const users = await UserModel.find(filter);
+		
+		users.forEach(user => {
+			user.buildings.forEach(object => {
+				object['client'] = user.username;
+			});
+		});
 		
 		var objects = users.map(user => user.buildings).flat();
 		
@@ -74,39 +65,27 @@ export class UserController {
 		res.status(200).json('Object deleted');
 	}
 	
-	upsertRating = async (req: Request, res: Response) => {
-		const { username: agencyUsername, rating } = req.body;
-		const { username: clientUsername } = rating;
-		
-		await UserModel.updateOne({ 'username': agencyUsername }, { $pull: { 'ratings': { 'username': clientUsername } } });
-		await UserModel.updateOne({ 'username': agencyUsername }, { $push: { 'ratings': rating } });
-		
-		res.status(200).json('Rating upserted');
-	}
-	
-	deleteRating = async (req: Request, res: Response) => {
-		const { username: agencyUsername, clientUsername } = req.body;
-		
-		await UserModel.updateOne({ 'username': agencyUsername }, { $pull: { 'ratings': { 'username': clientUsername } } });
-		
-		res.status(200).json('Rating deleted');
-	}
-	
 	requestAgency = async (req: Request, res: Response) => {
-		const { username: clientUsername, agencyUsername, objectAddress, timeStart, timeEnd } = req.body;
+		const { client, address, offer } = req.body;
 		
-		const user = await UserModel.findOne({ 'username': clientUsername });
+		const user = await UserModel.findOne({ 'username': client });
 		
+		var exists = false;
 		user.buildings.forEach(object => {
-			if (object.address == objectAddress) {
+			console.log(object.address, address)
+			if (object.address == address) {
 				object.status = 'Requested';
-				object.offers.push({
-					'agency': agencyUsername,
-					'timeStart': timeStart,
-					'timeEnd': timeEnd,
-				});
+				object.offers.push(offer);
+				
+				exists = true;
+				return;
 			}
 		});
+		
+		if (!exists) {
+			res.status(404).json('Object not found');
+			return;
+		}
 		
 		await user.save();
 		

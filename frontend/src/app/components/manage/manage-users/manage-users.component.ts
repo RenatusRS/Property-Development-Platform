@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { DataSource } from '@angular/cdk/collections';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
-import { Table } from 'src/consts';
 import { UserService } from 'src/app/services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AdminService } from 'src/app/services/admin.service';
+import { Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
 	selector: 'app-manage-users',
@@ -13,66 +11,97 @@ import { AdminService } from 'src/app/services/admin.service';
 	styleUrls: ['./manage-users.component.css']
 })
 export class ManageUsersComponent implements OnInit {
-
-	constructor(private service: AdminService, private snackBar: MatSnackBar) { }
+	@Input('requestFilter') requestFilter: boolean;
+	@Input('displayedColumns') displayedColumns: string[];
+	@Input('search') search: boolean;
+	
+	constructor(private service: UserService, private snackBar: MatSnackBar) { }
 
 	users: User[];
+	fUsers: User[];
 
-	dataSource: UserDataSource;
-
-	displayedColumns: string[] = ['username', 'password', 'firstname', 'lastname', 'phone', 'email', 'role', 'organization', 'address', 'identification', 'status', 'actions'];
+	dataSource: MatTableDataSource<User>;
+	
+	request: string = '---';
+	searchName: string = '';
+	searchAddress: string = '';
 
 	ngOnInit(): void {
 		this.service.getUsers().subscribe({
 			next: (users: User[]) => {
+				if (this.search) {
+					users = users.filter(user => user.role == "Agency");
+				}
+				
 				this.users = users;
+				this.fUsers = users;
 
-				this.dataSource = new UserDataSource(this.users);
+				this.dataSource = new MatTableDataSource(this.users);
 			}
 		});
 	}
-
-	update(i: number) {
-		if (this.users[i].username == null) return;
-
-		this.service.updateUser(this.users[i]).subscribe({
-			next: (response: string) => {
-				this.snackBar.open(response, 'OK');
-			},
-			error: (error: any) => {
-				this.snackBar.open(error.error, 'OK');
+	
+	sortData(sort: Sort) {
+		const data = this.fUsers.slice();
+		
+		if (!sort.active || sort.direction === '') {
+			this.fUsers = data;
+			return;
+		}
+		
+		this.fUsers = data.sort((a, b) => {
+			const isAsc = sort.direction === 'asc';
+			switch (sort.active) {
+				case 'username': return compare(a.username, b.username, isAsc);
+				case 'password': return compare(a.password, b.password, isAsc);
+				case 'phone': return compare(a.phone, b.phone, isAsc);
+				case 'email': return compare(a.email, b.email, isAsc);
+				case 'role': return compare(a.role, b.role, isAsc);
+				case 'status': return compare(a.status, b.status, isAsc);
+				case 'requested_workers': return compare(a.requested_workers, b.requested_workers, isAsc);
+				case 'allowed_workers': return compare(a.allowed_workers, b.allowed_workers, isAsc);
+				case 'name': return compare(a.name, b.name, isAsc);
+				case 'address': return compare(a.address, b.address, isAsc);
+				case 'identification': return compare(a.identification, b.identification, isAsc);
+				case 'description': return compare(a.description, b.description, isAsc);
+				default: return 0;
 			}
 		});
+		
+		function compare(a: number | string, b: number | string, isAsc: boolean) {
+			return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+		}
 	}
-
-	remove(i: number) {
-		this.service.removeUser(this.users[i].username).subscribe({
-			next: (response: any) => {
-				this.snackBar.open(response, 'OK');
-				this.ngOnInit()
-			},
-			error: (error: any) => {
-				this.snackBar.open(error.error, 'OK');
-			}
-		});
+	
+	applyFilter() {
+		this.fUsers = this.users.slice();
+		
+		console.log(this.request);
+		console.log(this.searchName);
+		console.log(this.searchAddress);
+		
+		console.log(this.fUsers)
+		
+		if (this.request == "registration") {
+			this.fUsers = this.fUsers.filter(user => user.status == "Pending");
+		} else if (this.request == "worker") {
+			this.fUsers = this.fUsers.filter(user => user.requested_workers > user.allowed_workers);
+		}
+		
+		if (this.searchName != '') {
+			this.fUsers = this.fUsers.filter(user => user.name.toLowerCase().includes(this.searchName.toLowerCase()));
+		}
+		
+		if (this.searchAddress != '') {
+			this.fUsers = this.fUsers.filter(user => user.address.toLowerCase().includes(this.searchAddress.toLowerCase()));
+		}
+		
+		this.dataSource = new MatTableDataSource(this.fUsers);
 	}
-}
-
-class UserDataSource extends DataSource<User> {
-	private _dataStream = new ReplaySubject<User[]>();
-
-	constructor(initialData: User[]) {
-		super();
-		this.setData(initialData);
-	}
-
-	connect(): Observable<User[]> {
-		return this._dataStream;
-	}
-
-	disconnect() { }
-
-	setData(data: User[]) {
-		this._dataStream.next(data);
+	
+	profile(i: number) {
+		if (this.fUsers[i].username == null) return;
+		
+		window.open(`user/${this.fUsers[i].username}`, "_blank");
 	}
 }

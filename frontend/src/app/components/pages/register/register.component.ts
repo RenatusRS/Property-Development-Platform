@@ -13,9 +13,6 @@ export class RegisterComponent implements OnInit {
 
 	constructor(private service: GuestService, private router: Router, private info: MatSnackBar) { }
 
-	firstName: string;
-	lastName: string;
-
 	username: string;
 
 	password: string;
@@ -23,11 +20,17 @@ export class RegisterComponent implements OnInit {
 
 	phone: string;
 	email: string;
+	
+	firstName: string;
+	lastName: string;
 
-	organizator: boolean;
-	organization: string;
+	isAgency: boolean;
+	
+	agency: string;
 	address: string;
 	identification: string;
+	
+	description: string;
 
 	showPassword: boolean = false;
 	showConfirmPassword: boolean = false;
@@ -36,7 +39,19 @@ export class RegisterComponent implements OnInit {
 	}
 
 	submit() {
-		const user: User = new User(this.firstName, this.lastName, this.username, this.password, this.phone, this.email, this.organizator ? "Organizator" : "User", this.organization, this.address, this.identification);
+		const user: User = new User(
+			this.username,
+			this.password,
+			this.phone,
+			this.email,
+			this.isAgency,
+			this.firstName,
+			this.lastName,
+			this.agency,
+			this.address,
+			this.identification,
+			this.description
+		);
 
 		this.service.register(user).subscribe({
 			next: (message: string) => {

@@ -1,15 +1,5 @@
 <mat-card>
-	<mat-card-title>Registration</mat-card-title>
 	<mat-card-content>
-		<p>
-			<mat-form-field>
-				<input type="text" required matInput placeholder="First Name" [(ngModel)]="firstName">
-			</mat-form-field>
-
-			<mat-form-field>
-				<input type="text" required matInput placeholder="Last Name" [(ngModel)]="lastName">
-			</mat-form-field>
-		</p>
 		<p>
 			<mat-form-field>
 				<input type="email" required matInput placeholder="Email" [(ngModel)]="email">
@@ -39,24 +29,40 @@
 				<input type="text" required matInput placeholder="Username" [(ngModel)]="username">
 			</mat-form-field>
 
-			<mat-slide-toggle [(ngModel)]="organizator">Organizator</mat-slide-toggle>
+			<mat-slide-toggle [(ngModel)]="isAgency">Agency</mat-slide-toggle>
 		</p>
-		<div *ngIf="organizator">
+		<div *ngIf="!isAgency">
 			<p>
 				<mat-form-field>
-					<input type="text" matInput placeholder="Organization Name" [(ngModel)]="organization">
+					<input type="text" required matInput placeholder="First Name" [(ngModel)]="firstName">
+				</mat-form-field>
+	
+				<mat-form-field>
+					<input type="text" required matInput placeholder="Last Name" [(ngModel)]="lastName">
+				</mat-form-field>
+			</p>
+		</div>
+		<div *ngIf="isAgency">
+			<p>
+				<mat-form-field>
+					<input type="text" required matInput placeholder="Agency Name" [(ngModel)]="agency">
 				</mat-form-field>
 				<mat-form-field>
-					<input type="text" matInput placeholder="Organization ID" [(ngModel)]="identification">
+					<input type="text" required matInput placeholder="Agency ID" [(ngModel)]="identification">
 				</mat-form-field>
 			</p>
 			<p>
 				<mat-form-field>
-					<input type="text" matInput placeholder="Address" [(ngModel)]="address">
+					<input type="text" required matInput placeholder="Address" [(ngModel)]="address">
+				</mat-form-field>
+			</p>
+			<p>
+				<mat-form-field>
+					<input type="text" required matInput placeholder="Description" [(ngModel)]="description">
 				</mat-form-field>
 			</p>
 		</div>
 
-		<button (click)="submit()" mat-button>Register</button>
+		<button (click)="submit()" mat-button>Submit</button>
 	</mat-card-content>
 </mat-card>

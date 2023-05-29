@@ -43,7 +43,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatRippleModule } from '@angular/material/core';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 // Material Popups & Modals
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -59,10 +59,16 @@ import { FooterComponent } from './components/common/footer/footer.component';
 import { LoginAdminComponent } from './components/pages/login-admin/login-admin.component';
 import { RegisterComponent } from './components/pages/register/register.component';
 import { ManageUsersComponent } from './components/manage/manage-users/manage-users.component';
-import { ManageWorkshopsComponent } from './components/manage/manage-workshops/manage-workshops.component';
-import { ManageAttendancesComponent } from './components/manage/manage-attendances/manage-attendances.component';
 import { ManageComponent } from './components/manage/manage.component';
 import { UserComponent } from './components/pages/user/user.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { AgenciesComponent } from './agencies/agencies.component';
+import { ObjectsComponent } from './objects/objects.component';
+import { CreateObjectComponent } from './create-object/create-object.component';
+import { CanvasCreateComponent } from './canvas-create/canvas-create.component';
+import { HireComponent } from './hire/hire.component';
+import { JobsComponent } from './jobs/jobs.component';
+import { JobComponent } from './job/job.component';
 
 @NgModule({
 	declarations: [
@@ -75,9 +81,15 @@ import { UserComponent } from './components/pages/user/user.component';
 		RegisterComponent,
 		ManageComponent,
 		ManageUsersComponent,
-		ManageWorkshopsComponent,
-		ManageAttendancesComponent,
 		UserComponent,
+		ChangePasswordComponent,
+		AgenciesComponent,
+		ObjectsComponent,
+		CreateObjectComponent,
+		CanvasCreateComponent,
+		HireComponent,
+  JobsComponent,
+  JobComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -94,6 +106,7 @@ import { UserComponent } from './components/pages/user/user.component';
 		MatAutocompleteModule,
 		MatCheckboxModule,
 		MatDatepickerModule,
+		MatNativeDateModule,
 		MatRadioModule,
 		MatSelectModule,
 		MatSliderModule,

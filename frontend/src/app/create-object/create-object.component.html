@@ -1,0 +1,22 @@
+<mat-select [(value)]="building.type">
+	<mat-option value="Apartment">Apartment</mat-option>
+	<mat-option value="House">House</mat-option>
+</mat-select>
+
+<mat-form-field>
+	<input type="text" required matInput placeholder="Address" [(ngModel)]="building.address">
+</mat-form-field>
+
+<div>
+	<app-canvas-create [(scheme)]="building.scheme" mode="draw"></app-canvas-create>
+	<button (click)="clear()" mat-button>Clear</button>
+</div>
+
+
+<button (click)="submit()" mat-button>Submit</button>
+
+<button (click)="delete()" mat-button>Delete</button>
+
+<button (click)="export()" mat-button>Export</button>
+
+<input type="file" (change)="onFileSelected($event)" >

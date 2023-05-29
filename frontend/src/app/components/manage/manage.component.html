@@ -1,13 +1,6 @@
 <mat-tab-group mat-stretch-tabs="true" animationDuration="0">
-	<div *ngIf="user.role == 'Admin'">
-		<mat-tab label="Users">
-			<app-manage-users></app-manage-users>
-		</mat-tab>
-		<mat-tab label="Workshops">
-			<app-manage-workshops></app-manage-workshops>
-		</mat-tab>
-	</div>
-	<mat-tab label="Attendance">
-		<app-manage-attendances></app-manage-attendances>
+	<mat-tab label="Users">
+		<button mat-raised-button color="primary" (click)="addUser()">Add User</button>
+		<app-manage-users [search]="false" [requestFilter]="true" [displayedColumns]="['username', 'password', 'phone', 'email', 'role', 'status', 'name', 'address', 'identification', 'description', 'requested_workers', 'allowed_workers']"></app-manage-users>
 	</mat-tab>
 </mat-tab-group>

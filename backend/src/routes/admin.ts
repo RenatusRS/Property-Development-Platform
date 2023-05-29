@@ -7,7 +7,7 @@ adminRouter.route('/registration-response').post(
 	(req, res) => new AdminController().registrationResponse(req, res)
 )
 
-adminRouter.route('/get-worker-requests').get(
+adminRouter.route('/get-worker-requests').post(
 	(req, res) => new AdminController().getWorkerRequests(req, res)
 )
 

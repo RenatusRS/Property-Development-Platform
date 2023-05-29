@@ -1,5 +1,15 @@
 import { Schema, model } from "mongoose";
 
+const Worker = new Schema({
+	firstname: { type: String },
+	lastname: { type: String },
+	
+	email: { type: String }, // unique
+	phone: { type: String },
+	
+	specialization: { type: String },
+});
+
 const Room = new Schema({
 	xLU: { type: Number },
 	yLU: { type: Number },
@@ -8,7 +18,7 @@ const Room = new Schema({
 	yRD: { type: Number },
 	
 	status: { type: String, default: 'Unfinished' },
-	workers: { type: [String] }, // inconsistent warning
+	workers: { type: [Worker] }, // inconsistent warning
 });
 
 const Door = new Schema({
@@ -35,25 +45,19 @@ const Building = new Schema({
 	
 	offers: { type: [Offer] },
 	status: { type: String, default: 'Pending' },
-	payment: { type: Number }
+	payment: { type: Number },
+	
+	client: { type: String },
 });
 
 const Rating = new Schema({
 	username: { type: String }, // unique
 	
-	stars: { type: Number },
+	positive: { type: Boolean },
 	comment: { type: String },
 });
 
-const Worker = new Schema({
-	firstname: { type: String },
-	lastname: { type: String },
-	
-	email: { type: String }, // unique
-	phone: { type: String },
-	
-	specialization: { type: String },
-});
+
 
 const User = new Schema({
 	username: { type: String }, // unique
@@ -76,15 +80,15 @@ const User = new Schema({
 
 	// Agency
 	
-	name: { type: String},
+	name: { type: String },
 	address: { type: String },
 	identification: { type: String },
 	description: { type: String },
 	
 	ratings : { type: [Rating] },
 	workers: { type: [Worker] },
-	allowed_workers: { type: Number },
-	requested_workers: { type: Number },
+	allowed_workers: { type: Number, default: 0 },
+	requested_workers: { type: Number, default: 0 },
 });
 
 export default model('UserModel', User, 'users');

@@ -2,8 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Table } from 'src/consts';
-import { User } from '../models/user';
-import { Workshop } from '../models/workshop';
+import { Building, Offer, User } from '../models/user';
 import { Service } from './service';
 
 @Injectable({
@@ -19,48 +18,36 @@ export class UserService extends Service {
 	getUser(username: string): Observable<User[]> {
 		return this.find(Table.User, { username });
 	}
-
-	getWorkshop(id: string): Observable<Workshop> {
-		return this.find(Table.Workshop, { id });
+	
+	updateUser(user: User): Observable<string> {
+		return this.update(Table.User, user, { username: user.username });
+	}
+	
+	removeUser(username: string): Observable<string> {
+		return this.remove(Table.User, { username });
+	}
+	
+	getUsers(): Observable<User[]> {
+		return this.find(Table.User);
 	}
 
-	like(id: string): Observable<string> {
-		return this.post(`like`, { workshop: id, username: this.user.username });
+	insertUser(user: User): Observable<User> {
+		return this.insert(Table.User, user);
 	}
-
-	unlike(id: string, username: string = this.user.username): Observable<string> {
-		return this.post('unlike', { workshop: id, username: username });
+	
+	getObjects(filter): Observable<Building[]> {
+		return this.post("get-objects", filter);
 	}
-
-	getLikesForUser(username: string): Observable<Workshop[]> {
-		return this.post('getUserLikes', { username });
+	
+	upsertObject(username: string, object: Building): Observable<string> {
+		return this.post("upsert-object", { username, object });
 	}
-
-	getCommentsForUser(username: string): Observable<Workshop[]> {
-		return this.post('getUserComments', { username });
+	
+	removeObject(username: string, objectAddress: string): Observable<string> {
+		return this.post("delete-object", { username, objectAddress });
 	}
-
-	getChatForUser(username: string): Observable<Workshop[]> {
-		return this.post('getUserChat', { username });
-	}
-
-	getAttendanceForUser(username: string): Observable<Workshop[]> {
-		return this.post('getUserAttendances', { username });
-	}
-
-	comment(id: string, comment: string): Observable<string> {
-		return this.post(`comment`, { workshop: id, comment, username: this.user.username });
-	}
-
-	deleteComment(workshop: string, username: string = this.user.username) {
-		return this.post('deleteComment', { workshop, username });
-	}
-
-	sendMessage(workshop_id: string, message: string, isOrganizator: boolean): Observable<string> {
-		return this.post('sendChatMessage', { workshop: workshop_id, message, username: this.user.username, isOrganizator: isOrganizator });
-	}
-
-	suggestWorkshop(workshop: Workshop): Observable<string> {
-		return this.insert(Table.Workshop, workshop);
+	
+	requestAgency(client: string, address: string, offer: Offer): Observable<string> {
+		return this.post("request-agency", { client, address, offer });
 	}
 }
