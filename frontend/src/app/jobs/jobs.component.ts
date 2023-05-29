@@ -16,7 +16,13 @@ export class JobsComponent implements OnInit {
 
 	offers: Offer[] = [];
 	offersDetail: { client: string, address: string, status: string }[] = [];
+	
+	fOffers: Offer[] = [];
+	fOffersDetail: { client: string, address: string, status: string }[] = [];
+	
 	dataSource: MatTableDataSource<Offer>;
+	
+	status: string = 'all';
 
 	ngOnInit(): void {
 		const user = this.service.user;
@@ -29,16 +35,41 @@ export class JobsComponent implements OnInit {
 				objects.forEach(object => {
 					object.offers.forEach(offer => {
 						this.offers.push(offer);
+						this.fOffers.push(offer);
 						
 						const status = object.status == "Pending" ? "Rejected" : object.status;
 						
+						this.fOffersDetail.push({ client: object.client, address: object.address, status: status });
 						this.offersDetail.push({ client: object.client, address: object.address, status: status });
 					});
 				});
 			
-				this.dataSource = new MatTableDataSource(this.offers);
+				this.dataSource = new MatTableDataSource(this.fOffers);
 			}
 		});
+	}
+	
+	applyFilter() {
+		this.fOffers = this.offers.slice();
+		this.fOffersDetail = this.offersDetail.slice();
+		var both : { o: Offer, d: { client: string, address: string, status: string }}[] = [];
+		
+		for (let i = 0; i < this.fOffers.length; i++) {
+			both.push({ o: this.fOffers[i], d: this.fOffersDetail[i] });
+		}
+		
+		if (this.status == "negotiation") {
+			both = both.filter(offer => offer.d.status == "Offered" || offer.d.status == "Requested");
+		} else if (this.status == "active") {
+			both = both.filter(offer => offer.d.status == "Active");
+		} else if (this.status == "finished") {
+			both = both.filter(offer => offer.d.status == "Finished");
+		}
+		
+		this.fOffers = both.map(offer => offer.o);
+		this.fOffersDetail = both.map(offer => offer.d);
+		
+		this.dataSource = new MatTableDataSource(this.fOffers);
 	}
 	
 	profile(username: string) {

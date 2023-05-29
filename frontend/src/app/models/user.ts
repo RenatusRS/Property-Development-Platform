@@ -19,8 +19,8 @@ export class Room {
 		return this.xLU < room.xRD && this.xRD > room.xLU && this.yLU < room.yRD && this.yRD > room.yLU;
 	}
 	
-	withinRoom(x: number, y: number): boolean {
-		return this.xLU < x && this.xRD > x && this.yLU < y && this.yRD > y;
+	static withinRoom(room: Room, x: number, y: number): boolean {
+		return room.xLU < x && room.xRD > x && room.yLU < y && room.yRD > y;
 	}
 }
 

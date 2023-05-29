@@ -23,10 +23,6 @@ userRouter.route('/request-agency').post(
 	(req, res) => new UserController().requestAgency(req, res)
 )
 
-userRouter.route('/offer-response').post(
-	(req, res) => new UserController().offerResponse(req, res)
-)
-
 userRouter.route('/get-workers').post(
 	(req, res) => new UserController().getWorkers(req, res)
 )
@@ -37,10 +33,6 @@ userRouter.route('/update-workers').post(
 
 userRouter.route('/request-more-workers').post(
 	(req, res) => new UserController().requestMoreWorkers(req, res)
-)
-
-userRouter.route('/job-response').post(
-	(req, res) => new UserController().jobResponse(req, res)
 )
 
 export default userRouter;

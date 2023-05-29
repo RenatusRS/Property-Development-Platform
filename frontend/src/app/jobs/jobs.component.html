@@ -1,42 +1,53 @@
 <div class="example-table-container">
+	<mat-select [(value)]="status" (selectionChange)="applyFilter()">
+		<mat-option value="all">All</mat-option>
+		<mat-option value="negotiation">Negotiations</mat-option>
+		<mat-option value="active">Active</mat-option>
+		<mat-option value="finished">Finished</mat-option>
+	</mat-select>
+
 	<table mat-table [dataSource]="dataSource" class="example-table">
 
 		<ng-container matColumnDef="client">
 			<th mat-header-cell *matHeaderCellDef>Client</th>
 
-			<td mat-cell *matCellDef="let i = index" (click)="profile(offersDetail[i].client)">{{offersDetail[i].client}}</td>
+			<td mat-cell *matCellDef="let i = index" (click)="profile(fOffersDetail[i].client)">
+				{{fOffersDetail[i].client}}</td>
 		</ng-container>
 
 		<ng-container matColumnDef="agency">
 			<th mat-header-cell *matHeaderCellDef>Agency</th>
 
-			<td mat-cell *matCellDef="let i = index" (click)="profile(offers[i].agency)">{{offers[i].agency}}</td>
+			<td mat-cell *matCellDef="let i = index" (click)="profile(fOffers[i].agency)">{{fOffers[i].agency}}</td>
 		</ng-container>
 
 		<ng-container matColumnDef="address">
 			<th mat-header-cell *matHeaderCellDef>Address</th>
 
-			<td mat-cell *matCellDef="let i = index"(click)="job(offersDetail[i].address)">{{offersDetail[i].address}}</td>
+			<td mat-cell *matCellDef="let i = index" (click)="job(fOffersDetail[i].address)">
+				{{fOffersDetail[i].address}}</td>
 		</ng-container>
-		
+
 		<ng-container matColumnDef="status">
 			<th mat-header-cell *matHeaderCellDef>Status</th>
 
-			<td mat-cell *matCellDef="let i = index">{{offersDetail[i].status}}</td>
+			<td mat-cell *matCellDef="let i = index"
+				[ngStyle]="{'background-color': (fOffersDetail[i].status == 'Rejected') ? '#a83242' : '#32a852'}">
+				{{fOffersDetail[i].status}}</td>
 		</ng-container>
 
 		<ng-container matColumnDef="start">
 			<th mat-header-cell *matHeaderCellDef>Start Date</th>
 
-			<td mat-cell *matCellDef="let i = index">{{offers[i].time_start}}</td>
+			<td mat-cell *matCellDef="let i = index">{{fOffers[i].time_start}}</td>
 		</ng-container>
-		
+
 		<ng-container matColumnDef="end">
 			<th mat-header-cell *matHeaderCellDef>End Date</th>
 
-			<td mat-cell *matCellDef="let i = index">{{offers[i].time_end}}</td>
+			<td mat-cell *matCellDef="let i = index">{{fOffers[i].time_end}}</td>
 		</ng-container>
-		
+
 		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 		<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 	</table>

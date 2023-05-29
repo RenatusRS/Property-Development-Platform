@@ -32,6 +32,8 @@ export class JobComponent implements OnInit {
 			next: (building: Building[]) => {
 				this.building = building[0];
 				
+				console.log(this.building)
+				
 				if (this.building.status == 'Active' && this.user.role == 'Client') {
 					this.complete = this.building.scheme.rooms.every(room => room.finished);
 				}
@@ -42,9 +44,25 @@ export class JobComponent implements OnInit {
 			},
 		});
 	}
+
+	agencyAccept() {
+		this.building.status = "Offered";
+		this.update();
+	}
+	
+	agencyReject() {
+		this.building.status = "Pending";
+		this.update();
+	}
 	
 	clientAccept() {
 		this.building.status = "Active";
+		this.update();
+	}
+	
+	clientReject() {
+		this.building.status = "Pending";
+		this.building.offers.pop();
 		this.update();
 	}
 	
@@ -54,7 +72,8 @@ export class JobComponent implements OnInit {
 	}
 	
 	update() {
-		this.service.upsertObject(this.service.user.username, this.building).subscribe({
+		console.log(this.building.scheme)
+		this.service.upsertObject(this.building.client, this.building).subscribe({
 			next: (message) => {
 				this.info.open(message, "OK");
 			}, error: (error) => {

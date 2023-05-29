@@ -78,38 +78,18 @@ export class UserController {
 				object.offers.push(offer);
 				
 				exists = true;
-				return;
+				return; 
 			}
 		});
 		
 		if (!exists) {
 			res.status(404).json('Object not found');
-			return;
+			return; 
 		}
 		
 		await user.save();
 		
 		res.status(200).json('Agency requested');
-	}
-	
-	offerResponse = async (req: Request, res: Response) => {
-		const { username: clientUsername, agencyUsername, objectAddress, accepted } = req.body;
-		
-		const user = await UserModel.findOne({ 'username': clientUsername });
-		
-		user.buildings.forEach(object => {
-			if (object.address == objectAddress) {
-				if (accepted) object.status = 'Accepted';
-				else {
-					object.status = 'Pending';
-					object.offers.pop();
-				}
-			}
-		});
-		
-		await user.save();
-		
-		res.status(200).json('Offer responded');
 	}
 	
 	getWorkers = async (req: Request, res: Response) => {
@@ -134,25 +114,6 @@ export class UserController {
 		await UserModel.updateOne({ 'username': username }, { 'requested_workers': workerNumber });
 		
 		res.status(200).json('Requested more workers');
-	}
-	
-	jobResponse = async (req: Request, res: Response) => {
-		const { username, objectAddress, payment, accepted } = req.body;
-	
-		const user = await UserModel.findOne({ 'username': username });
-		
-		user.buildings.forEach(object => {
-			if (object.address == objectAddress) {
-				if (accepted) {
-					object.status = 'Offered';
-					object.payment = payment;
-				} else object.status = 'Pending';
-			}
-		});
-		
-		await user.save();
-		
-		res.status(200).json('Offer response sent');
 	}
 		
 }

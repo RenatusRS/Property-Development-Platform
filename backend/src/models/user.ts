@@ -17,7 +17,7 @@ const Room = new Schema({
 	xRD: { type: Number },
 	yRD: { type: Number },
 	
-	status: { type: String, default: 'Unfinished' },
+	finished: { type: Boolean, default: false },
 	workers: { type: [Worker] }, // inconsistent warning
 });
 

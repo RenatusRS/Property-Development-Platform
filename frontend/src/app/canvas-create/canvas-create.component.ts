@@ -17,7 +17,7 @@ export class CanvasCreateComponent implements OnInit, AfterViewInit {
 
 	@Input() mode: string = "none";
 	@Input() error: boolean = false;
-
+	
 	@Input() scheme: Scheme;
 	@Output() schemeChange = new EventEmitter<Scheme>();
 
@@ -63,7 +63,7 @@ export class CanvasCreateComponent implements OnInit, AfterViewInit {
 			}
 		} else if (this.mode == "manage") {
 			for (var room of this.scheme.rooms) {
-				if (room.withinRoom(event.offsetX, event.offsetY)) {
+				if (Room.withinRoom(room, event.offsetX, event.offsetY)) {
 					room.finished = !room.finished;
 					break;
 				}
@@ -132,7 +132,7 @@ export class CanvasCreateComponent implements OnInit, AfterViewInit {
 			const width = (room.xRD - room.xLU);
 			const height = (room.yRD - room.yLU);
 			
-			if (this.mode == "manage") {
+			if (this.mode == "manage" || this.mode == "view") {
 				this.context.fillStyle = this.error ? 'yellow' : room.finished ? 'green' : 'red';
 				this.context.fillRect(startX, startY, width, height);
 			}
