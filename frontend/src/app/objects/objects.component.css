@@ -19,6 +19,7 @@
   
   .mat-header-cell, .mat-cell {
 	padding: 10px 26px;
+	width: 250px;
 	text-align: left;
   }
   
