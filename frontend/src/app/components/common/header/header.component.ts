@@ -11,6 +11,7 @@ import { User } from '../../../models/user';
 export class HeaderComponent {
 	constructor(private service: GuestService, private router: Router) {
 		this.user = service.user;
+		if (this.user) this.image = "http://localhost:4000/uploads/user/" + this.user.username + ".jpeg";
 
 		service.userObservable.subscribe({
 			next: (user: User) => {
@@ -20,6 +21,16 @@ export class HeaderComponent {
 	}
 
 	user: User;
+	
+	image: any = "";
+	
+	imageError() {
+		if (this.image == "http://localhost:4000/uploads/user/" + this.user.username + ".jpeg") {
+			this.image = "http://localhost:4000/uploads/user/" + this.user.username + ".png";
+		} else if (this.image == "http://localhost:4000/uploads/user/" + this.user.username + ".png") {
+			this.image = "http://localhost:4000/uploads/default.png";
+		}
+	}
 
 	logout() {
 		this.service.user = null;
@@ -53,5 +64,9 @@ export class HeaderComponent {
 	
 	jobs() {
 		this.router.navigate(['jobs']);
+	}
+	
+	workers() {
+		this.router.navigate([`workers/${this.user.username}`]);
 	}
 }

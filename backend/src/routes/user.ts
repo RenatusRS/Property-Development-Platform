@@ -35,4 +35,8 @@ userRouter.route('/request-more-workers').post(
 	(req, res) => new UserController().requestMoreWorkers(req, res)
 )
 
+userRouter.route('/update-image').post(
+	(req, res) => new UserController().updateImage(req, res)
+)
+
 export default userRouter;

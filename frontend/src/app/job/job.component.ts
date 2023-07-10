@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Building, Room, Scheme, User } from '../models/user';
+import { Building, DatePair, Room, Scheme, User } from '../models/user';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -18,25 +18,40 @@ export class JobComponent implements OnInit {
 	complete: boolean = false;
 	user: User;
 
-	ngOnInit(): void {
+	async ngOnInit(): Promise<void> {
 		const object = this.route.snapshot.paramMap.get('id');
-		this.user = this.service.user;
+		this.user = JSON.parse(localStorage.getItem("user"));
 		
 		if (!object) return;
 		
-		const filter = {
-			objectAddress: object
-		}
-
-		this.service.getObjects(filter).subscribe({
-			next: (building: Building[]) => {
-				this.building = building[0];
+		await this.service.getUser(this.service.user.username).subscribe({
+			next: (user: User[]) => {
+				this.user = user[0];
 				
-				console.log(this.building)
-				
-				if (this.building.status == 'Active' && this.user.role == 'Client') {
-					this.complete = this.building.scheme.rooms.every(room => room.finished);
+				if (this.user == null) {
+					this.info.open("User not found", "OK");
+					this.router.navigate(['home']);
 				}
+				
+				const filter = {
+					objectAddress: object
+				}
+		
+				this.service.getObjects(filter).subscribe({
+					next: (building: Building[]) => {
+						this.building = building[0];
+						
+						console.log(this.building)
+						
+						if (this.building.status == 'Active' && this.user.role == 'Client') {
+							this.complete = this.building.scheme.rooms.every(room => room.finished);
+						}
+					},
+					error: (error) => {
+						this.info.open(error.error, "OK");
+						this.router.navigate(['home']);
+					},
+				});
 			},
 			error: (error) => {
 				this.info.open(error.error, "OK");
@@ -80,6 +95,35 @@ export class JobComponent implements OnInit {
 				this.info.open(error.error, "OK");
 			}
 		});
+	}
+	
+	canAssign() {
+		let available_workers = this.user.workers.length;
+		console.log("Available workers", available_workers);
+		
+		for (let i = 0; i < this.user.assigned_dates.length; i++) {
+			const date = this.user.assigned_dates[i];
+			
+			if (date.start <= this.building.offers[this.building.offers.length - 1].time_start && date.end >= this.building.offers[this.building.offers.length - 1].time_end) {
+				available_workers--;
+			}
+		}
+		
+		console.log("Can assign", available_workers, this.building.scheme.rooms.length);
+		return available_workers >= this.building.scheme.rooms.length;
+	}
+	
+	assign() {
+		for (let room of this.building.scheme.rooms) {
+			this.user.assigned_dates.push(new DatePair(
+				this.building.offers[this.building.offers.length - 1].time_start,
+				this.building.offers[this.building.offers.length - 1].time_end
+			));
+		}
+		
+		this.building.workers = true;
+		
+		this.update();
 	}
 
 }

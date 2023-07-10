@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import UserModel from '../models/user';
 import user from '../models/user';
 
+const fs = require('fs');
+
 export class UserController {
 	getUsers = async (req: Request, res: Response) => {
 		const { username, role, status } = req.body;
@@ -115,5 +117,31 @@ export class UserController {
 		
 		res.status(200).json('Requested more workers');
 	}
+	
+	updateImage = async (req: Request, res: Response) => {
+		const { username, photo } = req.body;
+		
+		// Delete old image
+		
+		const type = photo.split(';')[0].split('/')[1];
+		
+		if (type == 'png') fs.unlink(`./uploads/user/${username}.jpeg`, (err) => {});
+		if (type == 'jpeg') fs.unlink(`./uploads/user/${username}.png`, (err) => {});
+		
+		let base64Image = photo.split(';base64,').pop();
+		
+		fs.writeFile(`./uploads/user/${username}.${type}`, base64Image, { encoding: 'base64' }, function(err) {
+			if (err) {
+				console.log(err);
+				return res.status(500).json('Error while saving image');
+			} else {
+				console.log('File created');
+			}
+		}); 
+		
+		res.status(200).json('Image updated');
+	}
+		
+		
 		
 }

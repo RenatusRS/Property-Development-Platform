@@ -31,6 +31,8 @@
 
 			<mat-slide-toggle [(ngModel)]="isAgency">Agency</mat-slide-toggle>
 		</p>
+		
+
 		<div *ngIf="!isAgency">
 			<p>
 				<mat-form-field>
@@ -61,7 +63,13 @@
 					<input type="text" required matInput placeholder="Description" [(ngModel)]="description">
 				</mat-form-field>
 			</p>
+	
 		</div>
+		<p>
+			<input type="file" (change)="onFileSelected($event)">
+		</p>
+
+		
 
 		<button (click)="submit()" mat-button>Submit</button>
 	</mat-card-content>

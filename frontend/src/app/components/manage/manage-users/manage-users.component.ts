@@ -17,8 +17,8 @@ export class ManageUsersComponent implements OnInit {
 	
 	constructor(private service: UserService, private snackBar: MatSnackBar) { }
 
-	users: User[];
-	fUsers: User[];
+	users: any[];
+	fUsers: any[];
 
 	dataSource: MatTableDataSource<User>;
 	
@@ -28,9 +28,13 @@ export class ManageUsersComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.service.getUsers().subscribe({
-			next: (users: User[]) => {
+			next: (users: any[]) => {
 				if (this.search) {
 					users = users.filter(user => user.role == "Agency");
+				}
+				
+				for (let i = 0; i < users.length; i++) {
+					users[i].photo = "http://localhost:4000/uploads/user/" + users[i].username + ".jpeg";
 				}
 				
 				this.users = users;
@@ -39,6 +43,14 @@ export class ManageUsersComponent implements OnInit {
 				this.dataSource = new MatTableDataSource(this.users);
 			}
 		});
+	}
+	
+	imageError(i: number) {
+		if (this.fUsers[i].photo == "http://localhost:4000/uploads/user/" + this.fUsers[i].username + ".jpeg") {
+			this.fUsers[i].photo = "http://localhost:4000/uploads/user/" + this.fUsers[i].username + ".png";
+		} else if (this.fUsers[i].photo == "http://localhost:4000/uploads/user/" + this.fUsers[i].username + ".png") {
+			this.fUsers[i].photo = "http://localhost:4000/uploads/default.png";
+		}
 	}
 	
 	sortData(sort: Sort) {

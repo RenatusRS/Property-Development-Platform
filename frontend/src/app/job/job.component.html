@@ -5,7 +5,7 @@
 	</div>
 
 	<div>
-		<app-canvas-create [(scheme)]="building.scheme" [mode]="building.status == 'Active' || building.status == 'Finished' ? user.role == 'Agency' ? 'manage' : 'view' : 'none'"></app-canvas-create>
+		<app-canvas-create [(scheme)]="building.scheme" [mode]="building.status == 'Active' ? user.role == 'Agency' && building.workers ? 'manage' : 'view' : 'none'" [error]="!building.workers && user.role == 'Agency' && !canAssign()"></app-canvas-create>
 	</div>
 
 	<div *ngIf="building.status == 'Requested' || building.status == 'Offered'">
@@ -22,7 +22,8 @@
 		</div>
 
 		<div *ngIf="building.status == 'Active'">
-			<button (click)="update()" mat-button>Update Progress</button>
+			<button *ngIf="!building.workers" (click)="assign()" mat-button>Assign Workers</button>
+			<button *ngIf="building.workers" (click)="update()" mat-button>Update Progress</button>
 		</div>
 	</div>
 

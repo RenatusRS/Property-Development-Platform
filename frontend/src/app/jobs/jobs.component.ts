@@ -33,15 +33,15 @@ export class JobsComponent implements OnInit {
 			next: (objects: Building[]) => {
 				console.log(objects)
 				objects.forEach(object => {
-					object.offers.forEach(offer => {
-						this.offers.push(offer);
-						this.fOffers.push(offer);
+					for (let i = 0; i < object.offers.length; i++) {
+						this.offers.push(object.offers[i]);
+						this.fOffers.push(object.offers[i]);
 						
-						const status = object.status == "Pending" ? "Rejected" : object.status;
+						const status = object.status == "Pending" || i != object.offers.length - 1 ? "Rejected" : object.status;
 						
-						this.fOffersDetail.push({ client: object.client, address: object.address, status: status });
 						this.offersDetail.push({ client: object.client, address: object.address, status: status });
-					});
+						this.fOffersDetail.push({ client: object.client, address: object.address, status: status });
+					}
 				});
 			
 				this.dataSource = new MatTableDataSource(this.fOffers);

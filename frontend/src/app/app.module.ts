@@ -69,6 +69,8 @@ import { CanvasCreateComponent } from './canvas-create/canvas-create.component';
 import { HireComponent } from './hire/hire.component';
 import { JobsComponent } from './jobs/jobs.component';
 import { JobComponent } from './job/job.component';
+import { WorkersComponent } from './workers/workers.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
 	declarations: [
@@ -90,6 +92,7 @@ import { JobComponent } from './job/job.component';
 		HireComponent,
   JobsComponent,
   JobComponent,
+  WorkersComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -140,6 +143,7 @@ import { JobComponent } from './job/job.component';
 		MatPaginatorModule,
 		MatSortModule,
 		MatTableModule,
+		ReactiveFormsModule
 	],
 	providers: [
 		{ provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 5000 } }

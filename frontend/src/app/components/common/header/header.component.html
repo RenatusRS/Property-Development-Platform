@@ -3,12 +3,13 @@
 	<div *ngIf="user">
 		<button *ngIf="user.role == 'Admin'" mat-button (click)="manage()"><mat-icon>inbox</mat-icon> Manage</button>
 		<button *ngIf="user.role == 'Client'" mat-button (click)="objects()"><mat-icon>store</mat-icon> Objects</button>
+		<button *ngIf="user.role == 'Agency'" mat-button (click)="workers()"><mat-icon>directions_walk</mat-icon> Workers</button>
 		<button *ngIf="user" mat-button (click)="jobs()"><mat-icon>work</mat-icon> Jobs</button>
 	</div>
 
 	<span class="spacer"></span>
 	<div *ngIf="user">
-		<button mat-button (click)="profile()"><mat-icon>person</mat-icon> {{user.username}}</button>
+		<button mat-button (click)="profile()"><img [src]="image" width="25px" height="25px" (error)="imageError()"> {{user.username}}</button>
 		<button mat-button (click)="logout()"><mat-icon>person_outline</mat-icon> Sign-Out</button>
 	</div>
 	<div *ngIf="user == null">

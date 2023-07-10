@@ -11,3 +11,12 @@ body {
 	margin: 0;
 	font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.footer {
+    position: fixed;
+    height: 56px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin-bottom: 0px;
+}

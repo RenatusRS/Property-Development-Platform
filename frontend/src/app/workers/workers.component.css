@@ -1,0 +1,23 @@
+.example-table-container {
+	position: relative;
+	overflow: auto;
+}
+
+table {
+	width: 100%;
+	max-width: 100%;
+}
+
+/* Column Widths */
+.mat-column-number,
+.mat-column-state {
+	max-width: 64px;
+}
+
+.mat-column-created {
+	max-width: 124px;
+}
+
+::ng-deep .mat-form-field-underline {
+	display: none;
+}

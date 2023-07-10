@@ -17,8 +17,7 @@ const Room = new Schema({
 	xRD: { type: Number },
 	yRD: { type: Number },
 	
-	finished: { type: Boolean, default: false },
-	workers: { type: [Worker] }, // inconsistent warning
+	finished: { type: Boolean, default: false }
 });
 
 const Door = new Schema({
@@ -47,6 +46,8 @@ const Building = new Schema({
 	status: { type: String, default: 'Pending' },
 	payment: { type: Number },
 	
+	workers: { type: Boolean, default: false },
+	
 	client: { type: String },
 });
 
@@ -57,7 +58,10 @@ const Rating = new Schema({
 	comment: { type: String },
 });
 
-
+const DatePair = new Schema({
+	start: { type: Date },
+	end: { type: Date },
+});
 
 const User = new Schema({
 	username: { type: String }, // unique
@@ -89,6 +93,8 @@ const User = new Schema({
 	workers: { type: [Worker] },
 	allowed_workers: { type: Number, default: 0 },
 	requested_workers: { type: Number, default: 0 },
+	
+	assigned_dates: { type: [DatePair] }
 });
 
 export default model('UserModel', User, 'users');

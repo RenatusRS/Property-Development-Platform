@@ -17,9 +17,11 @@ export class UserComponent implements OnInit {
 
 	logged: User = JSON.parse(localStorage.getItem("user"));
 	
-	canReview: boolean = true;
+	canReview: boolean = false;
 	positive: boolean = true;
 	comment: string = "";
+	
+	image: any = "";
 
 	ngOnInit(): void {
 		const user = this.route.snapshot.paramMap.get('id');
@@ -27,11 +29,14 @@ export class UserComponent implements OnInit {
 		this.service.getUser(user).subscribe({
 			next: (user: User[]) => {
 				this.user = user[0];
+				this.image = "http://localhost:4000/uploads/user/" + this.user.username + ".jpeg";
 				
 				if (this.user == null) {
 					this.info.open("User not found", "OK");
 					this.router.navigate(['home']);
 				}
+				
+				this.canReview = this.logged && this.logged.role == "Client" && this.logged.username != this.user.username;
 				
 				// find logged user review
 				this.user.ratings.forEach(review => {
@@ -48,6 +53,14 @@ export class UserComponent implements OnInit {
 		});
 	}
 	
+	imageError() {
+		if (this.image == "http://localhost:4000/uploads/user/" + this.user.username + ".jpeg") {
+			this.image = "http://localhost:4000/uploads/user/" + this.user.username + ".png";
+		} else if (this.image == "http://localhost:4000/uploads/user/" + this.user.username + ".png") {
+			this.image = "http://localhost:4000/uploads/default.png";
+		}
+	}
+	
 	updateUser() {
 		this.service.updateUser(this.user).subscribe({
 			next: (response: string) => {
@@ -58,6 +71,55 @@ export class UserComponent implements OnInit {
 			}
 		});
 	}
+	
+	workers() {
+		this.router.navigate(['workers', this.user.username]);
+	}
+	
+	onFileSelected(event) {
+		let photo = event.target.files[0];
+		
+		if (!photo) {
+			return;
+		}
+		
+		let acceptedTypes = ["image/png", "image/jpeg"];
+		if (!acceptedTypes.includes(photo.type)) {
+			this.info.open("Accepted image types are png, jpeg.", "OK");
+			return;
+		}
+			
+		let reader = new FileReader();
+		reader.onload = (e) => {
+			let image = new Image();
+			image.src = e.target.result as string;
+			image.onload = rs => {
+				let width = image.width;
+				let height = image.height;
+				
+				if (width < 100 || height < 100 || width > 300 || height > 300 || width != height) {
+					this.info.open("Image must be square and between 100x100 and 300x300 pixels.", "OK");
+					return;
+				}
+				
+				this.service.updateImage(reader.result.toString(), this.user.username).subscribe({
+					next: (response: string) => {
+						this.info.open(response, 'OK');
+						this.image = "http://localhost:4000/uploads/user/" + this.user.username + "." + photo.type.split("/")[1] + "?" + new Date().getTime();
+						this.ref.detectChanges();
+					},
+					error: (error: any) => {
+						this.info.open(error.error, 'OK');
+					}
+				});
+			}
+		}
+		
+		reader.readAsDataURL(photo);
+		
+
+	}
+		
 	
 	deleteUser() {
 		this.service.removeUser(this.user.username).subscribe({

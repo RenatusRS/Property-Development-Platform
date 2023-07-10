@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Table } from 'src/consts';
-import { Building, Offer, User } from '../models/user';
+import { Building, Offer, User, Worker } from '../models/user';
 import { Service } from './service';
 
 @Injectable({
@@ -21,6 +21,10 @@ export class UserService extends Service {
 	
 	updateUser(user: User): Observable<string> {
 		return this.update(Table.User, user, { username: user.username });
+	}
+	
+	updateImage(photo: string, username: string): Observable<string> {
+		return this.post("update-image", { photo, username });	
 	}
 	
 	removeUser(username: string): Observable<string> {
@@ -49,5 +53,13 @@ export class UserService extends Service {
 	
 	requestAgency(client: string, address: string, offer: Offer): Observable<string> {
 		return this.post("request-agency", { client, address, offer });
+	}
+	
+	getWorkers(username: string): Observable<Worker[]> {
+		return this.post("get-workers", { username });
+	}
+	
+	updateWorkers(username: string, workers: Worker[]): Observable<string> {
+		return this.post("update-workers", { username, workers });
 	}
 }

@@ -1,8 +1,10 @@
 <div *ngIf="user" id="main">
 	<mat-card>
+		<img [src]="image" alt="Profile Picture" width="50px" height="50px" (error)="imageError()">		
 		<mat-card-title>{{user.username}}</mat-card-title>
+		<input *ngIf="logged && (user.username == logged.username || logged.role == 'Admin')" type="file" (change)="onFileSelected($event)">
 		
-		<mat-form-field *ngIf="logged.role == 'Admin' && user.username != logged.username">
+		<mat-form-field *ngIf="logged && logged.role == 'Admin' && user.username != logged.username">
 			<mat-select [(value)]="user.status">
 				<mat-option value="Approved">Approved</mat-option>
 				<mat-option value="Rejected">Rejected</mat-option>
@@ -16,42 +18,52 @@
 			<mat-card-title>About</mat-card-title>
 			<div>
 				<mat-form-field>
-					<input type="tel" [readonly]="user.username != logged.username && logged.role != 'Admin'" matInput placeholder="Phone" [(ngModel)]="user.phone">
+					<input type="tel" [readonly]="!logged || (user.username != logged.username && logged.role != 'Admin')" matInput placeholder="Phone" [(ngModel)]="user.phone">
 				</mat-form-field>
 				<mat-form-field>
-					<input type="email" [readonly]="user.username != logged.username && logged.role != 'Admin'" matInput placeholder="Email" [(ngModel)]="user.email">
+					<input type="email" [readonly]="!logged || (user.username != logged.username && logged.role != 'Admin')" matInput placeholder="Email" [(ngModel)]="user.email">
 				</mat-form-field>
 			</div>
 			
 			<div *ngIf="user.role == 'Agency'">
 				<div>
 					<mat-form-field>
-						<input type="text" [readonly]="user.username != logged.username && logged.role != 'Admin'" matInput placeholder="Agency Name" [(ngModel)]="user.name">
+						<input type="text" [readonly]="!logged || (user.username != logged.username && logged.role != 'Admin')" matInput placeholder="Agency Name" [(ngModel)]="user.name">
 					</mat-form-field>
 					<mat-form-field>
-						<input type="text" [readonly]="user.username != logged.username && logged.role != 'Admin'" matInput placeholder="Identification" [(ngModel)]="user.identification">
-					</mat-form-field>
-				</div>
-
-				<div>
-					<mat-form-field>
-						<input type="text" [readonly]="user.username != logged.username && logged.role != 'Admin'"matInput placeholder="Address" [(ngModel)]="user.address">
+						<input type="text" [readonly]="!logged || (user.username != logged.username && logged.role != 'Admin')" matInput placeholder="Identification" [(ngModel)]="user.identification">
 					</mat-form-field>
 				</div>
 
 				<div>
 					<mat-form-field>
-						<input type="text" [readonly]="user.username != logged.username && logged.role != 'Admin'"matInput placeholder="Description" [(ngModel)]="user.description">
+						<input type="text" [readonly]="!logged || (user.username != logged.username && logged.role != 'Admin')" matInput placeholder="Address" [(ngModel)]="user.address">
+					</mat-form-field>
+				</div>
+
+				<div>
+					<mat-form-field>
+						<input type="text" [readonly]="!logged || (user.username != logged.username && logged.role != 'Admin')" matInput placeholder="Description" [(ngModel)]="user.description">
+					</mat-form-field>
+				</div>
+				
+				<div *ngIf="logged && (logged.role == 'Admin' || user.username == logged.username)">
+					<mat-form-field>
+						<input type="text" [readonly]="!logged || user.username != logged.username" matInput placeholder="Requested Workers" [(ngModel)]="user.requested_workers">
+					</mat-form-field>
+					
+					<mat-form-field>
+						<input type="text" [readonly]="!logged || logged.role != 'Admin'" matInput placeholder="Allowed Workers" [(ngModel)]="user.allowed_workers">
 					</mat-form-field>
 				</div>
 			</div>
 			<div *ngIf="user.role == 'Client'">
 				<div>
 					<mat-form-field>
-						<input type="text" [readonly]="user.username != logged.username && logged.role != 'Admin'" matInput placeholder="First Name" [(ngModel)]="user.firstname">
+						<input type="text" [readonly]="!logged || (user.username != logged.username && logged.role != 'Admin')" matInput placeholder="First Name" [(ngModel)]="user.firstname">
 					</mat-form-field>
 					<mat-form-field>
-						<input type="text" [readonly]="user.username != logged.username && logged.role != 'Admin'" matInput placeholder="Last Name" [(ngModel)]="user.lastname">
+						<input type="text" [readonly]="!logged || (user.username != logged.username && logged.role != 'Admin')" matInput placeholder="Last Name" [(ngModel)]="user.lastname">
 					</mat-form-field>
 				</div>
 			</div>
@@ -60,10 +72,10 @@
 			<mat-card-title>Reviews</mat-card-title>
 			<div *ngFor="let review of user.ratings">
 				<div>
-					<div [ngStyle]="{'background-color': (review.positive) ? '#32a852' : '#a83242'}">
+					<div >
 						<p *ngIf="logged">{{review.username}}</p>
 					</div>
-					<div>
+					<div [ngStyle]="{'background-color': (review.positive) ? '#32a852' : '#a83242'}">
 						<p>{{review.comment}}</p>
 					</div>
 				</div>
@@ -79,9 +91,10 @@
 		</mat-card>
 	</div>
 	<div>
-		<button *ngIf="user.username == logged.username || logged.role == 'Admin'" mat-raised-button color="primary" (click)="updateUser()">Save Changes</button>
-		<button *ngIf="logged.role == 'Admin' && user.username != logged.username" mat-raised-button color="warn" (click)="deleteUser()">Delete Account</button>
-		<button *ngIf="user.username == logged.username" mat-raised-button color="accent" (click)="changePassword()">Change Password</button>
-		<button *ngIf="logged.role == 'Client' && user.role == 'Agency'" mat-raised-button color="accent" (click)="hire()">Hire</button>
+		<button *ngIf="logged && (user.username == logged.username || logged.role == 'Admin')" mat-raised-button color="primary" (click)="updateUser()">Save Changes</button>
+		<button *ngIf="logged && (logged.role == 'Admin' && user.username != logged.username)" mat-raised-button color="warn" (click)="deleteUser()">Delete Account</button>
+		<button *ngIf="logged && (user.username == logged.username)" mat-raised-button color="accent" (click)="changePassword()">Change Password</button>
+		<button *ngIf="logged && (logged.role == 'Client' && user.role == 'Agency')" mat-raised-button color="accent" (click)="hire()">Hire</button>
+		<button *ngIf="logged && logged.role == 'Admin' && user.role == 'Agency'" mat-raised-button color="accent" (click)="workers()">Workers</button>
 	</div>
 </div>

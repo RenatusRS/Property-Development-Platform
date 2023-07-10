@@ -13,7 +13,6 @@ export class Room {
 	yRD: number;
 
 	finished: boolean = false;
-	workers: string[] = []; // inconsistent warning
 
 	overlaps(room: Room): boolean {
 		return this.xLU < room.xRD && this.xRD > room.xLU && this.yLU < room.yRD && this.yRD > room.yLU;
@@ -83,6 +82,8 @@ export class Building {
 	status: string = "Pending";
 	payment: number;
 	
+	workers: boolean = false;
+	
 	client: string;
 }
 
@@ -101,6 +102,16 @@ export class Worker {
 	phone: string;
 
 	specialization: string;
+}
+
+export class DatePair {
+	constructor(start: Date, end: Date) {
+		this.start = start;
+		this.end = end;
+	}
+	
+	start: Date;
+	end: Date;
 }
 
 export class User {
@@ -169,4 +180,6 @@ export class User {
 	workers: Worker[] = [];
 	allowed_workers: number;
 	requested_workers: number;
+	
+	assigned_dates: DatePair[] = [];
 }

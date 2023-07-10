@@ -1,3 +1,5 @@
 */node_modules
 frontend/.angular
 backend/dist
+
+backend/uploads/user/*

@@ -12,6 +12,7 @@ import { ObjectsComponent } from './objects/objects.component';
 import { HireComponent } from './hire/hire.component';
 import { JobsComponent } from './jobs/jobs.component';
 import { JobComponent } from './job/job.component';
+import { WorkersComponent } from './workers/workers.component';
 
 const routes: Routes = [
 	{ path: 'login', component: LoginComponent, title: 'Login' },
@@ -19,6 +20,7 @@ const routes: Routes = [
 	{ path: 'register', component: RegisterComponent, title: 'Register' },
 	{ path: 'manage', component: ManageComponent, title: 'Manage' },
 	{ path: 'user/:id', component: UserComponent, title: 'User' },
+	{ path: 'workers/:id', component: WorkersComponent, title: 'Workers'},
 	{ path: 'password', component: ChangePasswordComponent, title: 'Change Password' },
 	{ path: 'agencies', component: AgenciesComponent, title: 'Agencies'},
 	{ path: 'create', component: CreateObjectComponent, title: 'Create Object' },
