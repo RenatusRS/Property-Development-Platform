@@ -1,23 +1,54 @@
 .example-table-container {
-	position: relative;
-	overflow: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-table {
-	width: 100%;
-	max-width: 100%;
+.table-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
 }
 
-/* Column Widths */
-.mat-column-number,
-.mat-column-state {
-	max-width: 64px;
+.filter-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+	width: 250px;
+	cursor: pointer;
 }
 
-.mat-column-created {
-	max-width: 124px;
+.select-container {
+    width: 200px;
 }
 
-::ng-deep .mat-form-field-underline {
-	display: none;
+.search-fields {
+    display: flex;
+    gap: 10px;
+}
+
+.input-field {
+    width: 200px;
+}
+
+.example-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.header-row {
+    background-color: #92c7ff;
+    color: white;
+}
+
+.data-row:hover {
+    background-color: #ddd;
+}
+
+.pointer {
+	cursor: pointer;
 }

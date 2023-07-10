@@ -1,0 +1,36 @@
+.container {
+	font-family: 'Arial', sans-serif;
+	width: 80%;
+	margin: auto;
+  }
+  
+  .mat-form-field {
+	width: 100%;
+	margin-bottom: 20px;
+  }
+  
+  .canvas-section {
+	display: flex;
+	align-items: end;
+	margin-bottom: 20px;
+  }
+  
+  .actions-section {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+  }
+  
+  .export-section {
+	text-align: center;
+  }
+  
+  .left-margin {
+	margin-left: 10px;
+  }
+  
+  input[type=file] {
+	margin-top: 20px;
+  }
+  

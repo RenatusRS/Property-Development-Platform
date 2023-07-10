@@ -21,3 +21,7 @@ table {
 ::ng-deep .mat-form-field-underline {
 	display: none;
 }
+
+button {
+	margin-left: 20px;
+}

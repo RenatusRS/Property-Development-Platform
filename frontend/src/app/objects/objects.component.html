@@ -1,33 +1,29 @@
 <div class="example-table-container">
 	<button mat-raised-button color="primary" (click)="object()">New Object</button>
 	
-	<table mat-table [dataSource]="dataSource" class="example-table">
+	<mat-table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
 		<ng-container matColumnDef="address">
-			<th mat-header-cell *matHeaderCellDef>Address</th>
-
-			<td mat-cell *matCellDef="let i = index" (click)="object(objects[i].address)">{{objects[i].address}}</td>
+			<mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
+			<mat-cell *matCellDef="let i = index" class="pointer"  (click)="object(objects[i].address)">{{objects[i].address}}</mat-cell>
 		</ng-container>
 
 		<ng-container matColumnDef="type">
-			<th mat-header-cell *matHeaderCellDef>Type</th>
-
-			<td mat-cell *matCellDef="let i = index">{{objects[i].type}}</td>
+			<mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
+			<mat-cell *matCellDef="let i = index">{{objects[i].type}}</mat-cell>
 		</ng-container>
 
 		<ng-container matColumnDef="rooms">
-			<th mat-header-cell *matHeaderCellDef>Rooms</th>
-
-			<td mat-cell *matCellDef="let i = index">{{objects[i].scheme.rooms.length}}</td>
+			<mat-header-cell *matHeaderCellDef>Rooms</mat-header-cell>
+			<mat-cell *matCellDef="let i = index">{{objects[i].scheme.rooms.length}}</mat-cell>
 		</ng-container>
 
 		<ng-container matColumnDef="area">
-			<th mat-header-cell *matHeaderCellDef>Area</th>
-
-			<td mat-cell *matCellDef="let i = index">{{areas[i]}}</td>
+			<mat-header-cell *matHeaderCellDef>Area</mat-header-cell>
+			<mat-cell *matCellDef="let i = index">{{areas[i]}}</mat-cell>
 		</ng-container>
 		
-		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-		<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-	</table>
+		<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+		<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+	</mat-table>
 </div>

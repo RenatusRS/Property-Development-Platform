@@ -1,22 +1,27 @@
-<mat-select [(value)]="building.type">
-	<mat-option value="Apartment">Apartment</mat-option>
-	<mat-option value="House">House</mat-option>
-</mat-select>
-
-<mat-form-field>
-	<input type="text" required matInput placeholder="Address" [(ngModel)]="building.address">
-</mat-form-field>
-
-<div>
-	<app-canvas-create [(scheme)]="building.scheme" [mode]="building.status == 'Pending' ? 'draw' : 'none'"></app-canvas-create>
-	<button *ngIf="building.status == 'Pending'" (click)="clear()" mat-button>Clear</button>
-</div>
-
-
-<button *ngIf="building.status == 'Pending'" (click)="submit()" mat-button>Submit</button>
-
-<button *ngIf="building.status == 'Pending'" (click)="delete()" mat-button>Delete</button>
-
-<button (click)="export()" mat-button>Export</button>
-
-<input *ngIf="building.status == 'Pending'" type="file" (change)="onFileSelected($event)" >
+<div class="container">
+	<mat-form-field appearance="outline">
+	  <mat-label>Select Building Type</mat-label>
+	  <mat-select [(value)]="building.type">
+		<mat-option value="Apartment">Apartment</mat-option>
+		<mat-option value="House">House</mat-option>
+	  </mat-select>
+	</mat-form-field>
+  
+	<mat-form-field appearance="outline">
+	  <mat-label>Address</mat-label>
+	  <input matInput type="text" required placeholder="Enter Address" [(ngModel)]="building.address">
+	</mat-form-field>
+  
+	<div class="canvas-section">
+	  <app-canvas-create [(scheme)]="building.scheme" [mode]="building.status == 'Pending' ? 'draw' : 'none'"></app-canvas-create>
+	  <button class="left-margin" mat-raised-button color="warn" *ngIf="building.status == 'Pending'" (click)="clear()">Clear</button>
+	</div>
+  
+	<div class="actions-section" *ngIf="building.status == 'Pending'">
+	  <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+	  <button mat-raised-button color="warn" (click)="delete()">Delete</button>
+	  <input type="file" (change)="onFileSelected($event)">
+	  <button mat-raised-button color="accent" (click)="export()">Export</button>
+	</div>
+  </div>
+  

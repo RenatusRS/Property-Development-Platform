@@ -1,16 +1,21 @@
-<mat-select [(value)]="object">
-	<mat-option  *ngFor="let object of objects" [value]="object.address">{{object.address}}</mat-option>
-</mat-select>
+<div class="form-container">
+	<mat-form-field appearance="fill">
+		<mat-label>Select Address</mat-label>
+		<mat-select [(value)]="object">
+			<mat-option *ngFor="let object of objects" [value]="object.address">{{object.address}}</mat-option>
+		</mat-select>
+	</mat-form-field>
 
-<mat-form-field>
-	<mat-label>Date Range</mat-label>
-	<mat-date-range-input [rangePicker]="picker" [formGroup]="range">
-		<input [min]="min" matStartDate placeholder="Start Date" formControlName="start">
-		<input matEndDate placeholder="End Date" formControlName="end">
-	</mat-date-range-input>
-	<mat-hint>MM/DD/YYYY - MM/DD/YYYY</mat-hint>
-	<mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-	<mat-date-range-picker #picker></mat-date-range-picker>
-</mat-form-field>
+	<mat-form-field appearance="fill">
+		<mat-label>Date Range</mat-label>
+		<mat-date-range-input [rangePicker]="picker" [formGroup]="range">
+			<input matStartDate formControlName="start" placeholder="Start Date" [min]="min">
+			<input matEndDate formControlName="end" placeholder="End Date">
+		</mat-date-range-input>
+		<mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+		<mat-date-range-picker #picker></mat-date-range-picker>
+		<mat-hint align="start">MM/DD/YYYY - MM/DD/YYYY</mat-hint>
+	</mat-form-field>
 
-<button mat-raised-button color="primary" (click)="submit()">Submit</button>
+	<button class="submit-button" mat-raised-button color="primary" (click)="submit()">Submit</button>
+</div>

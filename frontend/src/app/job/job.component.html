@@ -1,39 +1,43 @@
-<div>
-	<div>
-		<p>{{building.address}}</p>
-		<p>{{building.status}}</p>
+<div class="container">
+	<div class="building-details">
+		<h1 class="address">{{building.address}}</h1>
+		<p class="status">{{building.status}}</p>
 	</div>
 
-	<div>
-		<app-canvas-create [(scheme)]="building.scheme" [mode]="building.status == 'Active' ? user.role == 'Agency' && building.workers ? 'manage' : 'view' : 'none'" [error]="!building.workers && user.role == 'Agency' && !canAssign()"></app-canvas-create>
+	<div class="canvas-container">
+		<app-canvas-create [(scheme)]="building.scheme" 
+							[mode]="building.status == 'Active' ? user.role == 'Agency' && building.workers ? 'manage' : 'view' : 'none'" 
+		                    [error]="!building.workers && user.role == 'Agency' && !canAssign()">
+		</app-canvas-create>
 	</div>
 
-	<div *ngIf="building.status == 'Requested' || building.status == 'Offered'">
+	<div *ngIf="building.status == 'Requested' || building.status == 'Offered'" class="payment-input">
 		<mat-form-field>
-			<input type="text" required matInput [readonly]="user.role != 'Agency' || building.status != 'Requested'" placeholder="Payment"
-				[(ngModel)]="building.payment">
+			<input type="text" required matInput 
+			       [readonly]="user.role != 'Agency' || building.status != 'Requested'" 
+			       placeholder="Payment" [(ngModel)]="building.payment">
 		</mat-form-field>
 	</div>
 
 	<div *ngIf="user.role == 'Agency'">
-		<div *ngIf="building.status == 'Requested'">
+		<div *ngIf="building.status == 'Requested'" class="agency-actions">
 			<button (click)="agencyAccept()" mat-button>Send Payment Offer</button>
 			<button (click)="agencyReject()" mat-button>Reject</button>
 		</div>
 
-		<div *ngIf="building.status == 'Active'">
+		<div *ngIf="building.status == 'Active'" class="active-agency-actions">
 			<button *ngIf="!building.workers" (click)="assign()" mat-button>Assign Workers</button>
 			<button *ngIf="building.workers" (click)="update()" mat-button>Update Progress</button>
 		</div>
 	</div>
 
 	<div *ngIf="user.role == 'Client'">
-		<div *ngIf="building.status == 'Offered'">
+		<div *ngIf="building.status == 'Offered'" class="client-actions">
 			<button (click)="clientAccept()" mat-button>Accept Payment Offer</button>
 			<button (click)="clientReject()" mat-button>Reject</button>
 		</div>
 
-		<div *ngIf="complete">
+		<div *ngIf="complete" class="complete-client-actions">
 			<button (click)="clientPay()" mat-button>Pay & Finalize</button>
 		</div>
 	</div>

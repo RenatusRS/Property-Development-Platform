@@ -1,23 +1,38 @@
-.example-table-container {
-	position: relative;
-	overflow: auto;
+.table-container {
+    width: 90%;
+    margin: 0 auto;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-table {
-	width: 100%;
-	max-width: 100%;
+.mat-select {
+    margin-bottom: 1rem;
+	width: 200px;
 }
 
-/* Column Widths */
-.mat-column-number,
-.mat-column-state {
-	max-width: 64px;
+.mat-table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.mat-column-created {
-	max-width: 124px;
+.mat-header-cell, .mat-cell {
+    padding: 1rem;
+    text-align: left;
 }
 
-::ng-deep .mat-form-field-underline {
-	display: none;
+.mat-header-cell {
+    background-color: #f5f5f5;
+    font-weight: 600;
+}
+
+.mat-row:nth-child(odd) {
+    background-color: #fafafa;
+}
+
+.mat-cell:hover {
+    background-color: #f0f0f0;
+}
+
+.pointer {
+	cursor: pointer;
 }

@@ -1,0 +1,46 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    font-family: Arial, sans-serif;
+}
+
+.building-details {
+    margin-bottom: 1rem;
+	text-align: center;
+}
+
+.address, .status {
+    font-size: 1.2rem;
+}
+
+.canvas-container {
+    margin-bottom: 1rem;
+}
+
+.payment-input {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.agency-actions, .active-agency-actions, .client-actions, .complete-client-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+button {
+    background-color: #3f51b5;
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+button:hover {
+    background-color: #303f9f;
+}
+

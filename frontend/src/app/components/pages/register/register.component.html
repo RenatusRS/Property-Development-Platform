@@ -1,76 +1,73 @@
-<mat-card>
-	<mat-card-content>
-		<p>
-			<mat-form-field>
+<mat-card class="register-card">
+	<mat-card-content class="card-content">
+
+		<div class="input-group">
+			<mat-form-field class="input-field">
 				<input type="email" required matInput placeholder="Email" [(ngModel)]="email">
 			</mat-form-field>
-			<mat-form-field>
+			<mat-form-field class="input-field">
 				<input type="tel" required matInput placeholder="Phone" [(ngModel)]="phone">
 			</mat-form-field>
-		</p>
-		<p>
-			<mat-form-field>
+		</div>
+
+		<div class="input-group">
+			<mat-form-field class="input-field">
 				<input [type]="showPassword ? 'text' : 'password'" required matInput placeholder="Password"
 					[(ngModel)]="password">
 				<mat-icon matSuffix (click)="togglePasswordVisibility()">
 					{{showPassword?'visibility_off':'visibility'}}
 				</mat-icon>
 			</mat-form-field>
-			<mat-form-field>
+			<mat-form-field class="input-field">
 				<input [type]="showConfirmPassword ? 'text' : 'password'" required matInput
 					placeholder="Confirm Password" [(ngModel)]="confirmPassword">
 				<mat-icon matSuffix (click)="toggleConfirmPasswordVisibility()">
 					{{showConfirmPassword?'visibility_off':'visibility'}}
 				</mat-icon>
 			</mat-form-field>
-		</p>
-		<p>
-			<mat-form-field>
+		</div>
+
+		<div class="input-group">
+			<mat-form-field class="input-field">
 				<input type="text" required matInput placeholder="Username" [(ngModel)]="username">
 			</mat-form-field>
-
-			<mat-slide-toggle [(ngModel)]="isAgency">Agency</mat-slide-toggle>
-		</p>
-		
-
-		<div *ngIf="!isAgency">
-			<p>
-				<mat-form-field>
-					<input type="text" required matInput placeholder="First Name" [(ngModel)]="firstName">
-				</mat-form-field>
-	
-				<mat-form-field>
-					<input type="text" required matInput placeholder="Last Name" [(ngModel)]="lastName">
-				</mat-form-field>
-			</p>
+			<mat-slide-toggle class="toggle-switch" [(ngModel)]="isAgency">Agency</mat-slide-toggle>
 		</div>
+
+		<div *ngIf="!isAgency" class="input-group">
+			<mat-form-field class="input-field">
+				<input type="text" required matInput placeholder="First Name" [(ngModel)]="firstName">
+			</mat-form-field>
+			<mat-form-field class="input-field">
+				<input type="text" required matInput placeholder="Last Name" [(ngModel)]="lastName">
+			</mat-form-field>
+		</div>
+
 		<div *ngIf="isAgency">
-			<p>
-				<mat-form-field>
+			<div class="input-group">
+				<mat-form-field class="input-field">
 					<input type="text" required matInput placeholder="Agency Name" [(ngModel)]="agency">
 				</mat-form-field>
-				<mat-form-field>
+				<mat-form-field class="input-field">
 					<input type="text" required matInput placeholder="Agency ID" [(ngModel)]="identification">
 				</mat-form-field>
-			</p>
-			<p>
-				<mat-form-field>
+			</div>
+			<div class="input-group">
+				<mat-form-field class="input-field">
 					<input type="text" required matInput placeholder="Address" [(ngModel)]="address">
 				</mat-form-field>
-			</p>
-			<p>
-				<mat-form-field>
+			</div>
+			<div class="input-group">
+				<mat-form-field class="input-field">
 					<input type="text" required matInput placeholder="Description" [(ngModel)]="description">
 				</mat-form-field>
-			</p>
-	
+			</div>
 		</div>
-		<p>
-			<input type="file" (change)="onFileSelected($event)">
-		</p>
 
-		
+		<div class="input-group">
+			<input type="file" class="file-input" (change)="onFileSelected($event)">
+		</div>
 
-		<button (click)="submit()" mat-button>Submit</button>
+		<button (click)="submit()" mat-button class="submit-button">Submit</button>
 	</mat-card-content>
 </mat-card>

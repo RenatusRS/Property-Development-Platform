@@ -1,4 +1,45 @@
-mat-form-field,
-mat-slide-toggle {
-	padding: 0 10px;
+.register-card {
+    max-width: 600px;
+    margin: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+}
+
+.card-content {
+    padding: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.input-field {
+    flex: 1 0 45%;
+    margin: 5px;
+}
+
+.toggle-switch {
+    align-self: center;
+    margin-left: 10px;
+}
+
+.file-input {
+    width: 100%;
+    margin: 10px 0;
+}
+
+.submit-button {
+    width: 100%;
+    height: 45px;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
 }
