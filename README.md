@@ -1,9 +1,9 @@
 # Space Renovation
-> Project for Internet Applications Programming / Programiranje Internet Aplikacija class.
+> Project for **Internet Applications Programming** / **Programiranje Internet Aplikacija** class.
 
 ## Overview
 
-The Space Renovation is a web application aimed at bridging the gap between clients, agencies, and administrators in the space refurbishing sector. The application is built around three user roles, each endowed with a unique set of functionalities to ensure seamless coordination and interaction.
+The **Space Renovation** is a web app for coordinating space refurbishing tasks among clients, agencies, and administrators. It's built with **Angular 14** on the frontend, and **Express** with **NodeJS** on the backend, both written in **TypeScript**. The data is managed using a **MongoDB** database.
 
 ## Functional Highlights
 
