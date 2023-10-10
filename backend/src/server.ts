@@ -20,7 +20,6 @@ mongoose.connection.once('open', () => {
 	console.log('db connection ok')
 });
 
-
 app.use('/guest', guestRouter);
 app.use('/data', dataRouter);
 app.use('/user', userRouter);
