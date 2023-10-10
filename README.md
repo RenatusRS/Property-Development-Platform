@@ -1,4 +1,5 @@
 # Space Renovation
+> Project for Internet Applications Programming / Programiranje Internet Aplikacija class.
 
 ## Overview
 
