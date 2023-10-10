@@ -1,4 +1,4 @@
-# Space Renovation
+# Property Development Platform
 > Project for **Internet Applications Programming** / **Programiranje Internet Aplikacija** class.
 
 ## Overview
