@@ -3,7 +3,7 @@
 
 ## Overview
 
-**Property Development Platform** is a full-stack web application that serves as a concept service marketplace for property development. It encompasses roles of clients, agencies, and administrators. It's built with **Angular 14** on the frontend, and **Express** with **NodeJS** on the backend, both written in **TypeScript**. The data is managed using a **MongoDB** database.
+**Property Development Platform** is a full-stack web application that serves as a concept service marketplace for property development. The platform caters to three user types: clients, agencies, and administrators. It's built with **Angular 14** integrated with **Material UI** on the frontend, and **Express** with **NodeJS** on the backend, both written in **TypeScript**. The data is managed using a **MongoDB** database.
 
 ## Functional Highlights
 
