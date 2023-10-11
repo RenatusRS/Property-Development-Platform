@@ -24,6 +24,8 @@ The application encapsulates a set of features tailored to each user role:
 
 ## How-To Run
 
+Start three separate terminals:
+
 ### Frontend
 
 ```bash
