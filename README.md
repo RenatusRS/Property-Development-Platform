@@ -22,9 +22,9 @@ The application encapsulates a set of features tailored to each user role:
 
 ## How-To Run
 
-Start three separate terminals:
+**1\. Start three separate terminals:**
 
-### Frontend
+#### Frontend
 
 ```bash
 cd frontend
@@ -32,7 +32,7 @@ npm install
 ng serve
 ```
 
-### Backend
+#### Backend
 
 ```bash
 cd backend
@@ -40,10 +40,11 @@ npm install
 npm start # or use nodemon with: npx nodemon
 ```
 
-### Database
+#### Database
 
 ```bash
 mongod
 ```
 
-**Access the Application:** Open your web browser and navigate to http://localhost:4200.
+**2\. Access the application:**
+* Open your web browser and navigate to http://localhost:4200.
